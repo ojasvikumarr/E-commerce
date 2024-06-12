@@ -17,10 +17,10 @@ const tshirts = () => {
   return (
     <>
       <section className="text-gray-600 body-font">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="flex flex-wrap -m-4">
+        <div className="container w-[400vh] py-24 mx-auto ">
+          <div className="flex flex-wrap ">
             {products.map((product) => (
-              <div key={product.id} className="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-md ">
+              <div key={product.id} className="lg:w-1/4 md:w-1/2 p-4 cursor-pointer shadow-md ">
                 <Link href={`/product/tshirt`} className='shadow-lg' passHref>
                   {/* <a className="block relative h-48 rounded overflow-hidden"> */}
                     <Image

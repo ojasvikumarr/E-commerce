@@ -63,7 +63,7 @@ const Footer = () => {
                                     <label htmlFor="footer-field" className="leading-7 text-sm text-gray-600">Placeholder</label>
                                     <input type="text" id="footer-field" name="footer-field" className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"/>
                                 </div>
-                                <button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
+                                <button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-purple-950 border-0 py-2 px-6 focus:outline-none hover:bg-purple-600 transition-colors rounded">Button</button>
                             </div>
                             <p className="text-gray-500 text-sm mt-2 md:text-left text-center">Bitters chicharrones fanny pack
                                 <br className="lg:block hidden"/>waistcoat green juice
@@ -71,7 +71,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <div className="bg-gray-700">
+                <div className="bg-purple-950">
                     <div className="container px-5 py-4 mx-auto flex items-center sm:flex-row flex-col">
                         <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
                             <Image src="/codeswear-high-resolution-logo-transparent.png" width={100} height={100}/>
