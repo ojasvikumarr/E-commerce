@@ -2,6 +2,9 @@ import "@/styles/globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { useState , useEffect } from "react";
+import { router } from "next/router";
+import { redirect } from "next/navigation";
+
 export default function App({ Component, pageProps }) {
   const [cart, setcart] = useState({})
   const [subtotal , setsubtotal] = useState(0);
@@ -58,11 +61,19 @@ export default function App({ Component, pageProps }) {
     saveCart(newCart);
     }
 
+  const buyNow = (itemCode , qty , price , name , size , variant) => {
+    let newCart = {};
+    newCart= {itemCode : {qty: 1 , price , name , size , variant}};
+    setcart(newCart);
+    saveCart(newCart);
+    router.push('/checkout')
+  }
+
   
   return(
     <>
       <Navbar addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>
-      <Component {...pageProps} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>;
+      <Component {...pageProps} buyNow={buyNow} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>;
       <Footer/>
     </>
   )

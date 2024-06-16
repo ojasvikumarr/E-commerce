@@ -70,7 +70,7 @@ const checkout = ({cart , addToCart , removeFromCart , clearCart , subtotal}) =>
                 key={k}
                 className="flex justify-between items-center py-2 border-b"
               >
-                <div className="w-2/3 font-semibold">{cart[k].name}</div>
+                <div className="w-2/3 font-semibold">{cart[k].name} ({cart[k].size}/{cart[k].variant})</div>
                 <div className="flex font-semibold items-center justify-center w-1/3 p-1">
                   <CiCircleMinus
                     onClick={() => {
@@ -100,7 +100,7 @@ const checkout = ({cart , addToCart , removeFromCart , clearCart , subtotal}) =>
                     className="text-xl font-semibold mx-1 cursor-pointer"
                   />
                 </div>
-                <div>$25.00</div>
+                <div>&#x20B9;{cart[k].price}</div>
               </li>
             );
           })}
