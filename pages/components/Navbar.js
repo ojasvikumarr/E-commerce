@@ -54,8 +54,8 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
             <Link href={"/hoodies"} className="mr-5 hover:text-gray-900">
               Hoodies
             </Link>
-            <Link href={"/sweatshirts"} className="mr-5 hover:text-gray-900">
-              Sweatshirts
+            <Link href={"/stickers"} className="mr-5 hover:text-gray-900">
+              Stickers
             </Link>
             <Link href={"/mugs"} className="mr-5 hover:text-gray-900">
               Mugs

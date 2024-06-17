@@ -5,15 +5,15 @@ import Product from '@/models/products';
 import mongoose from 'mongoose';
 
 
-const hoodies = ({products}) => {
+const stickers = ({products}) => {
   console.log(products);
 
   return (
     <>
       <section className="text-gray-600 body-font">
         <div className="container w-[400vh] py-24 mx-auto ">
-          <div className="flex flex-wrap justify-center">
-            {Object.keys(products).length === 0 && <p className=' text-3xl text-center my-8 font-bold'>"Sorry We're out of stock, we'll be back soon , Stay tuned!</p>}
+          <div className="flex flex-wrap justify-center ">
+          {Object.keys(products).length === 0 && <p className=' text-3xl text-center my-8 font-bold'>"Sorry We're out of stock, we'll be back soon , Stay tuned!</p>}
             {Object.keys(products).map((product) => (
               <div key={products[product]._id} className="lg:w-1/4 md:w-1/2 p-4 cursor-pointer shadow-md ">
                 <Link passHref={true} href={`/product/${products[product].slug}`} className='shadow-lg' >
@@ -73,33 +73,33 @@ const hoodies = ({products}) => {
   );
 };
 
-export default hoodies;
+export default stickers;
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   if(!mongoose.connections[0].readyState){
     await mongoose.connect(process.env.MONGO_URI)
   }
-  let products = await Product.find({category : 'Hoodie'});
-  let hoodies = {};
+  let products = await Product.find({category:'sticker'});
+  let stickers = {};
         for(let item of products){
-            if(item.item in hoodies){
-                if(!hoodies[item.item].color.includes(item.color) && item.availableQty>0){
-                    hoodies[item.item].color.push(item.color)
+            if(item.item in stickers){
+                if(!stickers[item.item].color.includes(item.color) && item.availableQty>0){
+                    stickers[item.item].color.push(item.color)
                 }
-                if(!hoodies[item.item].size.includes(item.size) && item.availableQty>0){
-                    hoodies[item.item].size.push(item.size)
+                if(!stickers[item.item].size.includes(item.size) && item.availableQty>0){
+                    stickers[item.item].size.push(item.size)
                 }
             }else{
-                hoodies[item.item] = JSON.parse(JSON.stringify(item))
+                stickers[item.item] = JSON.parse(JSON.stringify(item))
                 if(item.availableQty > 0 ){
-                    hoodies[item.item].color = [item.color]
-                    hoodies[item.item].size = [item.size]
+                    stickers[item.item].color = [item.color]
+                    stickers[item.item].size = [item.size]
                 }
             }
         }
   return {
 
-    props: {products : JSON.parse(JSON.stringify(hoodies))},
+    props: {products : JSON.parse(JSON.stringify(stickers))},
   }
 }

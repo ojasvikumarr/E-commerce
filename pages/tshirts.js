@@ -12,7 +12,8 @@ const tshirts = ({products}) => {
     <>
       <section className="text-gray-600 body-font">
         <div className="container w-[400vh] py-24 mx-auto ">
-          <div className="flex flex-wrap ">
+          <div className="flex flex-wrap justify-center ">
+          {Object.keys(products).length === 0 && <p className=' text-3xl text-center my-8 font-bold'>"Sorry We're out of stock, we'll be back soon , Stay tuned!</p>}
             {Object.keys(products).map((product) => (
               <div key={products[product]._id} className="lg:w-1/4 md:w-1/2 p-4 cursor-pointer shadow-md ">
                 <Link passHref={true} href={`/product/${products[product].slug}`} className='shadow-lg' >
@@ -79,7 +80,7 @@ export async function getServerSideProps(context) {
   if(!mongoose.connections[0].readyState){
     await mongoose.connect(process.env.MONGO_URI)
   }
-  let products = await Product.find();
+  let products = await Product.find({category:'tshirt'});
   let tshirts = {};
         for(let item of products){
             if(item.item in tshirts){

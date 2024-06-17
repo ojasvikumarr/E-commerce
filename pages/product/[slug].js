@@ -64,20 +64,19 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
     return (
         <>
             <section className="text-gray-600 body-font overflow-hidden">
-                toast("Wow so easy!")
                 <ToastContainer
-        position="bottom-center"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        
-      />
+                    position="bottom-center"
+                    autoClose={1000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+
+                />
                 <div className="container px-5 py-24 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto  object-cover object-top rounded" src={product.img} />
@@ -198,7 +197,7 @@ export async function getServerSideProps(context) {
             notFound: true,
         };
     }
-    let variants = await Product.find({ item: products.item })
+    let variants = await Product.find({ item: products.item , category: products.category})
     let colorSizeSlug = {}//{red : {XL : {slug:'wear-the-code-xl}}}
     for (let item of variants) {
         if (Object.keys(colorSizeSlug).includes(item.color)) {

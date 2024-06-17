@@ -74,6 +74,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Navbar addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>
       <Component {...pageProps} buyNow={buyNow} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>;
+      < main className="main-container"/>
       <Footer/>
     </>
   )
