@@ -1,54 +1,147 @@
 import React from 'react'
+import { useRouter } from "next/router";
+import { useState } from "react";
+import mongoose from "mongoose";
+import Product from "@/models/products";
+import Orders from '@/models/orders';
 
 const order = ({subtotal}) => {
   return (
     <>
-      <section className="text-gray-600 body-font overflow-hidden">
-        <div className="container px-5 py-24 mx-auto">
-          <div className="lg:w-4/5 mx-auto flex flex-wrap">
-            <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
-              <h2 className="text-sm title-font text-gray-500 tracking-widest">CodesWear.com</h2>
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-4">Order Id # 17U89F</h1>
-              <p className="leading-relaxed mb-4">Your order has been successfully placed!</p>
-              <div className="flex mb-4">
-                <a className="flex-grow border-b-2 border-red-500 py-2 text-lg px-1">Item Descriptiion</a>
-                <a className="flex-grow border-b-2 border-red-300 py-2 text-lg text-right px-1">Quantity</a>
-                <a className="flex-grow border-b-2 border-red-300 py-2 text-lg text-right px-1">Variant</a>
-              </div>
-              
-              <div className="flex border-t border-gray-200 py-2">
-                <span className="text-gray-500">Wear-The-Code</span>
-                <span className="ml-auto text-gray-900">1</span>
-                <span className="ml-auto text-gray-900 ">Blue</span>
-              </div>
-              <div className="flex border-t border-gray-200 py-2">
-              <span className="text-gray-500">Wear-The-Code</span>
-                <span className="ml-auto text-gray-900">1</span>
-                <span className="ml-auto text-gray-900">Blue</span>
-              </div>
-              <div className="flex border-t border-b mb-6 border-gray-200 py-2">
-              <span className="text-gray-500">Wear-The-Code</span>
-                <span className="ml-auto text-gray-900">1</span>
-                <span className="ml-auto text-gray-900">Blue</span>
-              </div>
-              <div className=" m-auto">
-                <div className="title-font font-medium py-2 text-2xl text-gray-900">Subtotal : &#x20B9;{subtotal}</div>
-                <div className="flex">
-                <button className="w-full text-white bg-indigo-500 border-0 py-4 px-6 focus:outline-none hover:bg-indigo-600 rounded">Track Your Order</button>
-                <button className="rounded-full w-10 h-10 bg-gray-200  p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                  <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                    <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                  </svg>
-                </button>
-                </div>
-              </div>
-            </div>
-            <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400"/>
-          </div>
-        </div>
-      </section>
+      <div className=" container mx-auto">
+        <h2 className="text-2xl mx-auto text-center items-center p-4">My Orders</h2>
+
+
+<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table className="w-full text-sm text-left rtl:text-right text-violet-900 dark:text-gray-400">
+        <thead className="text-xs text-violet-700 uppercase bg-gray-50 dark:bg-violet-700 dark:text-violet-400">
+            <tr>
+                <th scope="col" className="px-6 py-3">
+                    Product name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Color
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Category
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Price
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Apple MacBook Pro 17"
+                </th>
+                <td className="px-6 py-4">
+                    Silver
+                </td>
+                <td className="px-6 py-4">
+                    Laptop
+                </td>
+                <td className="px-6 py-4">
+                    $2999
+                </td>
+                <td className="px-6 py-4">
+                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Microsoft Surface Pro
+                </th>
+                <td className="px-6 py-4">
+                    White
+                </td>
+                <td className="px-6 py-4">
+                    Laptop PC
+                </td>
+                <td className="px-6 py-4">
+                    $1999
+                </td>
+                <td className="px-6 py-4">
+                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Magic Mouse 2
+                </th>
+                <td className="px-6 py-4">
+                    Black
+                </td>
+                <td className="px-6 py-4">
+                    Accessories
+                </td>
+                <td className="px-6 py-4">
+                    $99
+                </td>
+                <td className="px-6 py-4">
+                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Google Pixel Phone
+                </th>
+                <td className="px-6 py-4">
+                    Gray
+                </td>
+                <td className="px-6 py-4">
+                    Phone
+                </td>
+                <td className="px-6 py-4">
+                    $799
+                </td>
+                <td className="px-6 py-4">
+                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Apple Watch 5
+                </th>
+                <td className="px-6 py-4">
+                    Red
+                </td>
+                <td className="px-6 py-4">
+                    Wearables
+                </td>
+                <td className="px-6 py-4">
+                    $999
+                </td>
+                <td className="px-6 py-4">
+                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+      </div>
     </>
   )
 }
 
 export default order
+
+
+
+export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+      await mongoose.connect(process.env.MONGO_URI)
+  }
+  let order = await Orders.find({ });
+  
+  return {
+
+      props: {
+          order: JSON.parse(JSON.stringify(order)),
+      }
+  }
+}

@@ -18,35 +18,35 @@ const checkout = ({cart , addToCart , removeFromCart , clearCart , subtotal}) =>
       <h2 className='font-semibold text-xl'>1.Delivery Details</h2>
       <div className='mx-auto flex'>
         <div class="mx-2 w-1/2 mb-4">
-          <label for="Name" class="leading-7 text-m text-gray-600">Name</label>
+          <label htmlFor="Name" class="leading-7 text-m text-gray-600">Name</label>
           <input id="Name" name="Name" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
         <div class="mx-2 w-1/2 mb-4">
-          <label for="Email" class="leading-7 text-m text-gray-600">Email</label>
+          <label htmlFor="Email" class="leading-7 text-m text-gray-600">Email</label>
           <input id="Email" name="Email" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       </div>
       <div class="mx-2 w-full mb-4">
-        <label for="Address" class="leading-7 text-m text-gray-600">Address</label>
+        <label htmlFor="Address" class="leading-7 text-m text-gray-600">Address</label>
         <textarea id="Address" name="Address" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
       </div>
       <div className='mx-auto flex'>
         <div className="mx-2 w-1/2 mb-2">
-          <label for="Pincode" class="leading-7 text-m text-gray-600">Pincode</label>
+          <label htmlFor="Pincode" class="leading-7 text-m text-gray-600">Pincode</label>
           <input id="Pincode" name="Pincode" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
         <div className="mx-2 w-1/2 mb-2">
-          <label for="State" class="leading-7 text-m text-gray-600">State</label>
+          <label htmlFor="State" class="leading-7 text-m text-gray-600">State</label>
           <input id="State" name="State" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       </div>
       <div className='mx-auto flex'>
         <div className="mx-2 w-1/2 mb-2">
-          <label for="Phone" class="leading-7 text-m text-gray-600">Phone</label>
+          <label htmlFor="Phone" class="leading-7 text-m text-gray-600">Phone</label>
           <input id="Phone" name="Phone" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
         <div className="mx-2 w-1/2 mb-2">
-          <label for="City" class="leading-7 text-m text-gray-600">City</label>
+          <label htmlFor="City" class="leading-7 text-m text-gray-600">City</label>
           <input id="City" name="City" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       </div>

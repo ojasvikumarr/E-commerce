@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
   const [cart, setcart] = useState({})
   const [subtotal , setsubtotal] = useState(0);
   const [user , setUser] = useState({value:null})
-  const [key, setkey] = useState()
+  const [key, setkey] = useState('')
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
@@ -88,6 +88,7 @@ export default function App({ Component, pageProps }) {
     localStorage.removeItem('token')
     setkey(Math.random())
     setUser({value:null})
+    router.push('/')
   }
   
   return(
@@ -100,7 +101,7 @@ export default function App({ Component, pageProps }) {
         loaderSpeed={500}
         onLoaderFinished={() => setProgress(0)}
       />
-      <Navbar logout={logout} user={user} key={key} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>
+      {key && <Navbar logout={logout} user={user} key={key} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>}
       <Component {...pageProps} buyNow={buyNow} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>;
       < main className="main-container"/>
       <Footer/>
