@@ -12,8 +12,8 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
     const { slug } = useRouter().query;
     // console.log(slug);
 
-    const [pin, setpin] = useState('');
-    const [service, setservice] = useState('');
+    const [pin, setpin] = useState();
+    const [service, setservice] = useState();
 
     const checkServiceability = async () => {
         const pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);

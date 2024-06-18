@@ -9,11 +9,56 @@ import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { IoBagCheckSharp } from "react-icons/io5";
 import { CgTrashEmpty } from "react-icons/cg";
+import Head from 'next/head';
+import Script from 'next/script';
 
 
 const checkout = ({cart , addToCart , removeFromCart , clearCart , subtotal}) => {
+  const initiatePayment = async() => {
+
+    let oid = Math.floor(Math.random()*Date.now());
+    const data = {cart , subtotal , oid , email: "email"}
+    let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pretransaction` , {
+      method:'POST',
+      header:{
+        'Content-type': 'application/json'
+      },
+      body:JSON.stringify(data)
+    })
+    let txnToken = await a.json()
+    console.log(txnToken);
+    var config = {
+      "root": "",
+      "flow": "DEFAULT",
+      "data": {
+        "orderId": oid , 
+        "token": txnToken ,
+        "tokenType": "TXN_TOKEN",
+        "amount": subtotal
+      },
+      "handler": {
+        "notifyMerchant": function(eventName,data){
+          console.log("notifyMerchant handler function called");
+          console.log("eventName => ",eventName);
+          console.log("data => ",data);
+        } 
+      }
+    };
+
+    if(window.Paytm && window.Paytm.CheckoutJS){
+            window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
+                // after successfully updating configuration, invoke JS Checkout
+                window.Paytm.CheckoutJS.invoke();
+            }).catch(function onError(error){
+                console.log("error => ",error);
+            });
+        
+    } 
+  }
   return (
     <div className='container px-2 sm:m-auto '>
+      <Head><meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/></Head>
+      <Script type="application/javascript" src={`${process.env.PAYTM_HOST}/merchantpgpui/checkoutjs/merchants/${process.env.PAYTM_MID}.js`} onload="onScriptLoad();" crossorigin="anonymous"/>
       <h1 className='text-3xl text-center my-8 font-bold'>checkout</h1>
       <h2 className='font-semibold text-xl'>1.Delivery Details</h2>
       <div className='mx-auto flex'>
@@ -108,7 +153,7 @@ const checkout = ({cart , addToCart , removeFromCart , clearCart , subtotal}) =>
         <span className='font-bold'>subtotal = {subtotal}</span>
       </div>
       <Link href={"/payment"}>
-            <button className="lg:mt-2 xl:mt-4 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">
+            <button onClick={initiatePayment} className="lg:mt-2 xl:mt-4 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">
               <IoBagCheckSharp className="m-1 mx-2" />
               Pay  &#x20B9;{subtotal}
             </button>
