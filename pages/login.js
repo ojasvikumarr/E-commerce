@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router'; // Import useRouter
 import { Slide, ToastContainer, toast } from 'react-toastify';
@@ -9,6 +9,12 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const router = useRouter(); // Initialize useRouter
 
+  useEffect(() => {
+    if(localStorage.getItem('token')){
+      router.push("/")
+    }
+  }, [])
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'email') setEmail(value);
@@ -31,7 +37,7 @@ const Login = () => {
       const result = await res.json();
       if (res.ok) {
         console.log("Success:", `Successfully logged in the user ${result}`);
-        localStorage.setItem('token', res.token)
+        localStorage.setItem('token', result.token)
         toast.success('Successfully logged in!', {
           position: "top-left",
           autoClose: 1000,

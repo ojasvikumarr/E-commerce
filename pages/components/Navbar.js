@@ -9,8 +9,9 @@ import { CiCircleMinus } from "react-icons/ci";
 import { IoBagCheckSharp } from "react-icons/io5";
 import { CgTrashEmpty } from "react-icons/cg";
 import { MdAccountCircle } from "react-icons/md";
+import { useState } from "react";
 
-const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
+const Navbar = ({ logout , user ,cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   console.log(cart, addToCart, removeFromCart, clearCart, subtotal);
   const ref = useRef();
 
@@ -33,6 +34,8 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
       ref.current.classList.add("translate-x-full");
     }
   }
+  const [Dropdown, setDropdown] = useState(false)
+
   return (
     <>
       <header className="sticky top-0 z-10 text-gray-600 body-font">
@@ -64,13 +67,29 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
               Zipper
             </Link>
           </nav>
-
-          <Link
+          <div className="cursor-pointer">
+            <a onMouseOver={()=>setDropdown(true)} onMouseLeave={() => {setDropdown(false)}}>
+              {Dropdown && <div onMouseOver={()=>setDropdown(true)} onMouseLeave={() => {setDropdown(false)}} 
+                  className="bg-white shadow-lg absolute top-16  right-8  py-4 rounded-md px-5 w-32">
+                    <ul>
+                      <Link href={"/account"}><li className="text-black hover:text-pink-800">My Account</li></Link>
+                      <Link href={"/order"}><li className="text-black hover:text-pink-800">Orders</li></Link>
+                      <li onClick={logout} className="text-black hover:text-pink-800">LogOut</li>
+                    </ul>
+                </div>}
+                
+          {user.value && <Link
             href={"/login"}
             className="inline-flex items-center border-0  mx-2  focus:outline-none hover:bg-gray-200 rounded-full text-base mt-4 md:mt-0"
           >
             <MdAccountCircle  className="text-3xl" />
-          </Link>
+          </Link>}
+          </a>
+          {!user.value && <Link href={"/login"}>
+          <button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">Login</button>
+          </Link>}
+            
+          </div>
           <button
             onClick={toggleCart}
             className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
