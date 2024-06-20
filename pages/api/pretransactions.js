@@ -4,11 +4,21 @@ const https = require('https');
 // * You can get this utility from https://developer.paytm.com/docs/checksum/
 // */
 import PaytmChecksum from 'paytmchecksum';
+import connectDb from '@/middleware/mongoose';
+import orders from '@/models/orders';
+import Product from '@/models/products';
 
-export default async function handler(req, res) {
-    if (req.ethod == 'POST') {
-
-
+const handler = async (req, res) => {
+    if (req.method == 'POST') {
+        //initialize the order
+        let order = new orders({
+            email : req.body.email ,
+            orderId : req.body.oid ,
+            address :  req.body.address ,
+            amount : req.body.subtotal,
+            products : req.body.cart
+        })
+        await order.save();
 
         var paytmParams = {};
 
@@ -82,3 +92,6 @@ export default async function handler(req, res) {
 
     }
 }
+
+
+export default connectDb(handler);

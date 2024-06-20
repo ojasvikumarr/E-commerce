@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useState} from 'react'
 import Image from "next/image";
 import Link from "next/link";
 import { FaCartShopping } from "react-icons/fa6";
@@ -14,10 +14,47 @@ import Script from 'next/script';
 
 
 const checkout = ({cart , addToCart , removeFromCart , clearCart , subtotal}) => {
+  const [name, setname] = useState('')
+  const [email, setemail] = useState('')
+  const [pincode, setpincode] = useState('')
+  const [address, setaddress] = useState('')
+  const [state, setstate] = useState('')
+  const [phone, setphone] = useState('')
+  const [city, setcity] = useState('')
+  const [disabled, setDisabled] = useState(true)
+  const handleChange = (e) => {
+    if(e.target.name =='name'){
+      setname(e.target.value)
+    }
+    else if(e.target.name =='email'){
+      setemail(e.target.value)
+    }
+    else if(e.target.name =='pincode'){
+      setpincode(e.target.value)
+    }
+    else if(e.target.name =='address'){
+      setaddress(e.target.value)
+    }
+    else if(e.target.name =='state'){
+      setstate(e.target.value)
+    }
+    else if(e.target.name =='phone'){
+      setphone(e.target.value)
+    }
+    else if(e.target.name =='city'){
+      setcity(e.target.value)
+    }
+    if(name.length > 2 && email.length > 2 && pincode.length > 2 && state.length > 2 && city.length > 2 && address.length > 2){
+      setDisabled(false);
+    }else{
+      setDisabled(true) ;
+    }
+  }
+
   const initiatePayment = async() => {
 
     let oid = Math.floor(Math.random()*Date.now());
-    const data = {cart , subtotal , oid , email: "email"}
+    const data = {cart , subtotal , oid , email: "email" , name , address , pincode , phone}
     let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pretransaction` , {
       method:'POST',
       header:{
@@ -64,35 +101,35 @@ const checkout = ({cart , addToCart , removeFromCart , clearCart , subtotal}) =>
       <div className='mx-auto flex'>
         <div class="mx-2 w-1/2 mb-4">
           <label htmlFor="Name" class="leading-7 text-m text-gray-600">Name</label>
-          <input id="Name" name="Name" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <input onChange={handleChange} value={name} id="Name" name="name" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
         <div class="mx-2 w-1/2 mb-4">
           <label htmlFor="Email" class="leading-7 text-m text-gray-600">Email</label>
-          <input id="Email" name="Email" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <input onChange={handleChange} value={email} id="Email" name="email" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       </div>
       <div class="mx-2 w-full mb-4">
         <label htmlFor="Address" class="leading-7 text-m text-gray-600">Address</label>
-        <textarea id="Address" name="Address" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+        <textarea onChange={handleChange} value={address} id="Address" name="address" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
       </div>
       <div className='mx-auto flex'>
         <div className="mx-2 w-1/2 mb-2">
           <label htmlFor="Pincode" class="leading-7 text-m text-gray-600">Pincode</label>
-          <input id="Pincode" name="Pincode" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <input onChange={handleChange} value={pincode} id="Pincode" name="pincode" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
         <div className="mx-2 w-1/2 mb-2">
           <label htmlFor="State" class="leading-7 text-m text-gray-600">State</label>
-          <input id="State" name="State" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <input onChange={handleChange} value={state} id="State" name="state" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       </div>
       <div className='mx-auto flex'>
         <div className="mx-2 w-1/2 mb-2">
           <label htmlFor="Phone" class="leading-7 text-m text-gray-600">Phone</label>
-          <input id="Phone" name="Phone" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <input onChange={handleChange} value={phone} id="Phone" name="phone" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
         <div className="mx-2 w-1/2 mb-2">
           <label htmlFor="City" class="leading-7 text-m text-gray-600">City</label>
-          <input id="City" name="City" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <input onChange={handleChange} value={city} id="City" name="city" class="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       </div>
       <h2 className='font-semibold text-xl'>2.Review Cart Items & Pay</h2>
@@ -153,7 +190,7 @@ const checkout = ({cart , addToCart , removeFromCart , clearCart , subtotal}) =>
         <span className='font-bold'>subtotal = {subtotal}</span>
       </div>
       <Link href={"/payment"}>
-            <button onClick={initiatePayment} className="lg:mt-2 xl:mt-4 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">
+            <button onClick={initiatePayment} disabled={disabled} className="disabled:bg-violet-400 lg:mt-2 xl:mt-4 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">
               <IoBagCheckSharp className="m-1 mx-2" />
               Pay  &#x20B9;{subtotal}
             </button>
