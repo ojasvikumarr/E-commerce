@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
   const [progress, setProgress] = useState(0)
 
   useEffect(() => {
-    console.log("Hi useEffect here!!") ;
+    // console.log("Hi useEffect here!!") ;
 
     router.events.on('routeChangeStart', () => {
       setProgress(40)
