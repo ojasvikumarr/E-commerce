@@ -19,7 +19,7 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
         const pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
         const pinsJson = await pins.json();
         // console.log(pins, pinsJson);
-        if (pinsJson.includes(parseInt(pin))) {
+        if (Object.keys(pinsJson).includes(pin)) {
             toast.success('Pincode is servicable!', {
                 position: "bottom-center",
                 autoClose: 1000,

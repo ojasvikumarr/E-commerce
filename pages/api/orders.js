@@ -5,6 +5,8 @@ import connectDb from "@/middleware/mongoose";
 
 const handler = async (req, res) => {
     if (req.method == 'POST') {
+      //checking whethter the cart is tampered or not ?
+
       const { email, cart, subtotal, oid } = req.body;
   
       let o = new orders({
