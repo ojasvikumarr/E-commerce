@@ -111,20 +111,7 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   const createOrder = async () => {
     let oid = Math.floor(Math.random() * Date.now());
     let data = { cart, subtotal, name, address, phone, pincode, email, oid };
-    let product , sumtotal = 0 ;
-    // console.log(cart)
-    // for(let item in cart){
-    //   console.log(item)
-    //   sumtotal += cart[item].price *cart[item].qty
-    //   // let product = await Product.findOne({slug:item})
-    //   // if(product.price != cart[item].price){
-    //   //   res.status(200).json({error:"true"})
-    //   // }
-    // }
-    // if(sumtotal !== subtotal){
-    //   console.log("Tampering!!")
-    //   res.status(200).json({error:"true"})
-    // }
+    
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/orders`, {
         method: "POST",
