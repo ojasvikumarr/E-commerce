@@ -66,47 +66,47 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
     }
   }
 
-  const initiatePayment = async () => {
+  // const initiatePayment = async () => {
 
-    let oid = Math.floor(Math.random() * Date.now());
-    const data = { cart, subtotal, oid, email: "email", name, address, pincode, phone }
-    let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`, {
-      method: 'POST',
-      header: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    let txnToken = await a.json()
-    console.log(txnToken);
-    var config = {
-      "root": "",
-      "flow": "DEFAULT",
-      "data": {
-        "orderId": oid,
-        "token": txnToken,
-        "tokenType": "TXN_TOKEN",
-        "amount": subtotal
-      },
-      "handler": {
-        "notifyMerchant": function (eventName, data) {
-          console.log("notifyMerchant handler function called");
-          console.log("eventName => ", eventName);
-          console.log("data => ", data);
-        }
-      }
-    };
+  //   let oid = Math.floor(Math.random() * Date.now());
+  //   const data = { cart, subtotal, oid, email: "email", name, address, pincode, phone }
+  //   let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`, {
+  //     method: 'POST',
+  //     header: {
+  //       'Content-type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+  //   let txnToken = await a.json()
+  //   console.log(txnToken);
+  //   var config = {
+  //     "root": "",
+  //     "flow": "DEFAULT",
+  //     "data": {
+  //       "orderId": oid,
+  //       "token": txnToken,
+  //       "tokenType": "TXN_TOKEN",
+  //       "amount": subtotal
+  //     },
+  //     "handler": {
+  //       "notifyMerchant": function (eventName, data) {
+  //         console.log("notifyMerchant handler function called");
+  //         console.log("eventName => ", eventName);
+  //         console.log("data => ", data);
+  //       }
+  //     }
+  //   };
 
-    if (window.Paytm && window.Paytm.CheckoutJS) {
-      window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
-        // after successfully updating configuration, invoke JS Checkout
-        window.Paytm.CheckoutJS.invoke();
-      }).catch(function onError(error) {
-        console.log("error => ", error);
-      });
+  //   if (window.Paytm && window.Paytm.CheckoutJS) {
+  //     window.Paytm.CheckoutJS.init(config).then(function onSuccess() {
+  //       // after successfully updating configuration, invoke JS Checkout
+  //       window.Paytm.CheckoutJS.invoke();
+  //     }).catch(function onError(error) {
+  //       console.log("error => ", error);
+  //     });
 
-    }
-  }
+  //   }
+  // }
 
   const createOrder = async () => {
     let oid = Math.floor(Math.random() * Date.now());
@@ -135,9 +135,9 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
       });
   
       // Redirect to payment page with the order id
-      // setTimeout(() => {
-      //   router.push(`/payment?id=${result.orderId}`);
-      // }, 1600);
+      setTimeout(() => {
+        router.push(`/payment?id=${result.orderId}`);
+      }, 1600);
     } catch (error) {
       toast.error('Error while placing the order', {
         position: "top-left",
@@ -169,8 +169,8 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         theme="light"
         transition={Slide}
       />
-      <Head><meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" /></Head>
-      <Script type="application/javascript" src={`${process.env.PAYTM_HOST}/merchantpgpui/checkoutjs/merchants/${process.env.PAYTM_MID}.js`} onload="onScriptLoad();" crossorigin="anonymous" />
+      {/* <Head><meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" /></Head>
+      <Script type="application/javascript" src={`${process.env.PAYTM_HOST}/merchantpgpui/checkoutjs/merchants/${process.env.PAYTM_MID}.js`} onload="onScriptLoad();" crossorigin="anonymous" /> */}
       <h1 className='text-3xl text-center my-8 font-bold'>checkout</h1>
       <h2 className='font-semibold text-xl'>1.Delivery Details</h2>
       <div className='mx-auto flex'>
