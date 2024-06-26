@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react'
 import { useRouter } from 'next/router';
 import Image from "next/image";
@@ -15,7 +16,8 @@ import Script from 'next/script';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Product from '@/models/products';
-
+import { useEffect } from 'react';
+import { jwt } from 'jsonwebtoken';
 const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   const router = useRouter()
   const [name, setname] = useState('')
@@ -26,6 +28,51 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   const [phone, setphone] = useState('')
   const [city, setcity] = useState('')
   const [disabled, setDisabled] = useState(true)
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchUserData(token);
+    }
+  }, [])
+
+  const fetchUserData = async (token) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      const result = await res.json();
+      if (result.email) {
+        setemail(result.email);
+      } else {
+        console.error("Token verification failed:", result.error);
+        if (result.error === "Token expired, please log in again") {
+          // Prompt user to log in again
+          console.log("Session expired, please log in again.");
+          localStorage.removeItem('token')
+          toast.error(`Session expired, please log in again.${result.error}`, {
+            position: "top-left",
+            autoClose: 4500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            theme: "light",
+            transition: Slide,
+          });
+          // You can add your logic here to redirect the user to the login page or show a modal
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+
   const handleChange = async (e) => {
     if (e.target.name == 'name') {
       setname(e.target.value)
@@ -110,7 +157,19 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
 
   const createOrder = async () => {
     let oid = Math.floor(Math.random() * Date.now());
-    let data = { cart, subtotal, name, address, phone, pincode, email, oid };
+    if(subtotal == 0){
+      toast('Your Cart is Empty !! select something to buy', {
+        position: "top-left",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "light",
+        transition: Slide,
+      });
+    }
+    else{let data = { cart, subtotal, name, address, phone, pincode, email, oid };
     
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/orders`, {
@@ -121,8 +180,13 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         body: JSON.stringify(data),
       });
   
+      if(!res.ok){
+        const errorResponse = await res.json();
+        throw new Error(errorResponse.error)
+      }
       const result = await res.json();
-      console.log("Success:", `Order is successfully placed! `);
+      console.log(result);
+      // console.log("Success:", `Order is successfully placed! `);
       toast('Order is successfully placed!', {
         position: "top-left",
         autoClose: 1000,
@@ -135,13 +199,14 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
       });
   
       // Redirect to payment page with the order id
-      setTimeout(() => {
-        router.push(`/payment?id=${result.orderId}`);
-      }, 1600);
+      // setTimeout(() => {
+      //   router.push(`/payment?id=${result.orderId}`);
+      // }, 1600);
     } catch (error) {
-      toast.error('Error while placing the order', {
+      
+      toast.error(`Error: Problem in Creating the order as ${error.message}`, {
         position: "top-left",
-        autoClose: 1000,
+        autoClose: 4500,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -149,9 +214,9 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         theme: "light",
         transition: Slide,
       });
-  
-      console.error("Error:", `Problem in Creating the order ${error}`);
-    }
+      clearCart()
+      console.error("Error:", `Problem in Creating the order because ${error}`);
+    }}
   };
   
   return (
@@ -182,6 +247,7 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
           <label htmlFor="Email" className="leading-7 text-m text-gray-600">Email</label>
           <input onChange={handleChange} value={email} id="Email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
+      
       </div>
       <div className="mx-2 w-full mb-4">
         <label htmlFor="Address" className="leading-7 text-m text-gray-600">Address</label>

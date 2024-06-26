@@ -48,16 +48,24 @@ export default function App({ Component, pageProps }) {
     setsubtotal(subt); // Ensure this function is defined
   };
   
-  const addToCart = (itemCode , qty , price , name , size , variant) => {
-    let newCart = JSON.parse(JSON.stringify(cart)) ;
-    if(itemCode in cart){
-      newCart[itemCode].qty = cart[itemCode].qty + qty ;
-    }else{
-      newCart[itemCode] = {qty: 1 , price , name , size , variant};
+  const addToCart = (itemCode, qty, price, name, size, variant) => {
+    const newCart = { ...cart }; // Create a shallow copy of cart
+  
+    if (itemCode in newCart) {
+      // If itemCode already exists in cart, update its quantity
+      newCart[itemCode] = {
+        ...newCart[itemCode],
+        qty: newCart[itemCode].qty + qty
+      };
+    } else {
+      // If itemCode doesn't exist in cart, add it as a new entry
+      newCart[itemCode] = { qty: 1, price, name, size, variant };
     }
-    setcart(newCart);
-    saveCart(newCart);
-  }
+  
+    setcart(newCart); // Update cart state
+    saveCart(newCart); // Save cart to localStorage or elsewhere
+  };
+  
 
   const clearCart = () => {
     console.log("Cart has been cleared")
@@ -76,13 +84,32 @@ export default function App({ Component, pageProps }) {
     saveCart(newCart);
     }
 
-  const buyNow = (itemCode , qty , price , name , size , variant) => {
-    let newCart = {};
-    newCart= {itemCode : {qty: 1 , price , name , size , variant}};
-    setcart(newCart);
-    saveCart(newCart);
-    router.push('/checkout')
-  }
+    const buyNow = (itemCode, qty, price, name, size, variant) => {
+      // Create a shallow copy of the current cart state
+      const newCart = { ...cart };
+    
+      // Check if the itemCode already exists in cart
+      if (itemCode in newCart) {
+        // If itemCode exists, update its quantity
+        newCart[itemCode] = {
+          ...newCart[itemCode],
+          qty: newCart[itemCode].qty + qty
+        };
+      } else {
+        // If itemCode doesn't exist, add it as a new entry
+        newCart[itemCode] = { qty, price, name, size, variant };
+      }
+    
+      // Update cart state
+      setcart(newCart);
+    
+      // Save cart to localStorage or elsewhere
+      saveCart(newCart);
+    
+      // Redirect to checkout page
+      router.push('/checkout');
+    };
+    
 
   const logout = () => {
     localStorage.removeItem('token')
