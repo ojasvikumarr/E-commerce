@@ -95,6 +95,9 @@ export async function getServerSideProps() {
                 if(item.availableQty > 0 ){
                     hoodies[item.item].color = [item.color]
                     hoodies[item.item].size = [item.size]
+                }else{
+                  hoodies[item.item].color = []
+                  hoodies[item.item].size = []
                 }
             }
         }

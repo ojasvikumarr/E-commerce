@@ -3,28 +3,32 @@ import Link from "next/link";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
 import { HiOutlineShoppingCart } from "react-icons/hi2";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { IoBagCheckSharp } from "react-icons/io5";
 import { CgTrashEmpty } from "react-icons/cg";
 import { MdAccountCircle } from "react-icons/md";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
-const Navbar = ({ logout , user ,cart, addToCart, removeFromCart, clearCart, subtotal }) => {
+const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   console.log(cart, addToCart, removeFromCart, clearCart, subtotal);
   const ref = useRef();
-
+  const [sidebar, setsidebar] = useState(true)
   const toggleCart = () => {
-    if (ref.current.classList.contains("translate-x-full")) {
-      ref.current.classList.remove("translate-x-full");
-      ref.current.classList.add("translate-x-0");
-    } else if (ref.current.classList.contains("translate-x-0")) {
-      ref.current.classList.remove("translate-x-0");
-      ref.current.classList.add("translate-x-full");
-    }
+    setsidebar(!sidebar);
   };
-
+  const router = useRouter();
+  useEffect(() => {
+    
+  Object.keys(cart).length !== 0 && setsidebar(true)
+  let exempted = ['/checkout' , '/account' , '/order' , '/payment' , '/' , '/signup' ,'/login' ]
+    if(exempted.includes(router.pathname)){
+      setsidebar(false);
+    }
+  }, [])
+  
   const hideCart = () => {
     if (ref.current.classList.contains("translate-x-full")) {
       ref.current.classList.remove("translate-x-full");
@@ -35,9 +39,28 @@ const Navbar = ({ logout , user ,cart, addToCart, removeFromCart, clearCart, sub
     }
   }
   const [Dropdown, setDropdown] = useState(false)
-
+  // const [disable, setdisable] = useState(false)
+  // const emptyCart = () => {
+  //   if(Object.keys(cart).length === 0){
+  //     setdisable(false);
+  //   }
+  // }
+  // useEffect(() => {
+  //   emptyCart()
+  // }, [])
+  
   return (
-    <>
+    <div className={`${!sidebar && 'overflow-hidden'}`}>
+      <span onMouseLeave={() => {setTimeout(() => { setDropdown(false)}, 500) }}>
+              {Dropdown && <div onMouseOver={() => setDropdown(true)} onMouseLeave={() => { setDropdown(false) }}
+                className="bg-white shadow-lg absolute z-30 top-16  right-8  py-4 rounded-md px-5 w-32">
+                <ul>
+                  <Link href={"/account"}><li className="text-black hover:text-pink-800">My Account</li></Link>
+                  <Link href={"/order"}><li className="text-black hover:text-pink-800">Orders</li></Link>
+                  <li onClick={logout} className="text-black hover:text-pink-800">LogOut</li>
+                </ul>
+              </div>}
+              </span>
       <header className="sticky top-0 z-10 text-gray-600 body-font">
         <div className=" bg-slate-50 flex py-4 px-7 flex-col md:flex-row md:justify-start justify-center items-center shadow-md">
           <div className="logo mx-5">
@@ -67,28 +90,21 @@ const Navbar = ({ logout , user ,cart, addToCart, removeFromCart, clearCart, sub
               Zipper
             </Link>
           </nav>
-          <div className="cursor-pointer">
-            <span onMouseOver={()=>setDropdown(true)} onMouseLeave={() => {setDropdown(false)}}>
-              {Dropdown && <div onMouseOver={()=>setDropdown(true)} onMouseLeave={() => {setDropdown(false)}} 
-                  className="bg-white shadow-lg absolute top-16  right-8  py-4 rounded-md px-5 w-32">
-                    <ul>
-                      <Link href={"/account"}><li className="text-black hover:text-pink-800">My Account</li></Link>
-                      <Link href={"/order"}><li className="text-black hover:text-pink-800">Orders</li></Link>
-                      <li onClick={logout} className="text-black hover:text-pink-800">LogOut</li>
-                    </ul>
-                </div>}
-                
-          {user.value && <Link
-            href={"/account"}
-            className="inline-flex items-center border-0  mx-2  focus:outline-none hover:bg-gray-200 rounded-full text-base mt-4 md:mt-0"
-          >
-            <MdAccountCircle  className="text-3xl" />
-          </Link>}
-          </span>
-          {!user.value && <Link href={"/login"}>
-          <button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">Login</button>
-          </Link>}
+          <div className="cursor-pointer z-100">
             
+              <span  onMouseOver={() => setDropdown(true)}  >
+              {user.value && <Link
+                href={"/account"}
+                className="inline-flex items-center border-0  mx-2  focus:outline-none hover:bg-gray-200 rounded-full text-base mt-4 md:mt-0"
+              >
+                <MdAccountCircle className="text-3xl" />
+              </Link>}
+              </span>
+            
+            {!user.value && <Link href={"/login"}>
+              <button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">Login</button>
+            </Link>}
+
           </div>
           <button
             onClick={toggleCart}
@@ -100,7 +116,7 @@ const Navbar = ({ logout , user ,cart, addToCart, removeFromCart, clearCart, sub
       </header>
       <div
         ref={ref}
-        className={`sidecart overflow-y-scroll fixed top-0 right-0 h-full w-80 bg-slate-300 p-10 transform transition-transform ${Object.keys(cart).length !== 0 ? 'translate-x-0' : 'translate-x-full'} shadow-lg z-50`}
+        className={`sidecart overflow-y-scroll fixed top-0 h-full w-80 bg-slate-300 p-10  transition-all ${sidebar? 'right-0' : '-right-96'} shadow-lg z-50`}
       >
         <h2 className="font-bold text-xl">Shopping Cart</h2>
         <span
@@ -155,26 +171,27 @@ const Navbar = ({ logout , user ,cart, addToCart, removeFromCart, clearCart, sub
           })}
         </ol>
         <span className="mt-2 font-bold">
-            subTotal : {subtotal}
-          </span>
+          subTotal : {subtotal}
+        </span>
         <div className="flex mt-2 mx-1 justify-center">
           <Link href={"/checkout"}>
-            <button  onClick={hideCart} className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">
+            <button disabled={Object.keys(cart).length === 0} onClick={hideCart} className="disabled:bg-indigo-200 lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">
               <IoBagCheckSharp className="m-1 mx-2" />
               Checkout
             </button>
           </Link>
           <button
             onClick={clearCart}
-            className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 "
+            disabled={Object.keys(cart).length === 0}
+            className="disabled:bg-indigo-200 lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 "
           >
             <CgTrashEmpty className="m-1 mx-2" />
             Clear cart
           </button>
-          
+
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

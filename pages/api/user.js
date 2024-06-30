@@ -5,7 +5,7 @@ const handler = async (req, res) => {
     if (req.method === 'POST') {
         const { token } = req.body;
 
-        console.log("Received token:", token);
+        // console.log("Received token:", token);
 
         if (!token) {
             return res.status(401).json({ error: "Token is missing" });
@@ -21,8 +21,8 @@ const handler = async (req, res) => {
 
         try {
             const data = jwt.verify(token, jwtSecret);
-            console.log("Decoded email:", data.email);
-            
+            // console.log("Decoded email:", data.email);
+
             res.status(200).json({ email: data.email });
         } catch (error) {
             console.error("JWT verification error:", error.message);

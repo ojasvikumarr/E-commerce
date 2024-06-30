@@ -1,23 +1,27 @@
 "use client"
 import React, { useState } from 'react'
 import { useRouter } from 'next/router';
-import Image from "next/image";
-import Link from "next/link";
-import { FaCartShopping } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
-import { HiOutlineShoppingCart } from "react-icons/hi2";
-import { useRef } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { IoBagCheckSharp } from "react-icons/io5";
-import { CgTrashEmpty } from "react-icons/cg";
+
 import Head from 'next/head';
 import Script from 'next/script';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Product from '@/models/products';
+import { Label } from './components/ui/label';
+import { Input } from './components/ui/input';
+import { cn } from './utils/cn';
+import {
+  IconBrandGithub,
+  IconBrandGoogle,
+  IconBrandOnlyfans,
+} from "@tabler/icons-react";
+import { HoverBorderGradient } from "./components/ui/hover-border-gradient";
+
 import { useEffect } from 'react';
-import { jwt } from 'jsonwebtoken';
+
 const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   const router = useRouter()
   const [name, setname] = useState('')
@@ -51,7 +55,7 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         setemail(result.email);
       } else {
         console.error("Token verification failed:", result.error);
-        if (result.error === "Token expired, please log in again") {
+
           // Prompt user to log in again
           console.log("Session expired, please log in again.");
           localStorage.removeItem('token')
@@ -66,7 +70,8 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
             transition: Slide,
           });
           // You can add your logic here to redirect the user to the login page or show a modal
-        }
+        localStorage.removeItem('token');
+        router.push('/login');
       }
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -169,7 +174,9 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         transition: Slide,
       });
     }
-    else{let data = { cart, subtotal, name, address, phone, pincode, email, oid };
+    else{
+      
+      let data = { cart, subtotal, name, address, phone, pincode, email, oid };
     
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/orders`, {
@@ -185,7 +192,7 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         throw new Error(errorResponse.error)
       }
       const result = await res.json();
-      console.log(result);
+      // console.log(result);
       // console.log("Success:", `Order is successfully placed! `);
       toast('Order is successfully placed!', {
         position: "top-left",
@@ -214,7 +221,14 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         theme: "light",
         transition: Slide,
       });
-      clearCart()
+      let cartClear = false;
+    if (error.response) {
+      const errorResponse = await error.response.json();
+      cartClear = errorResponse.cartClear;
+    }
+      if(cartClear){
+        clearCart()
+      }
       console.error("Error:", `Problem in Creating the order because ${error}`);
     }}
   };
@@ -241,36 +255,36 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
       <div className='mx-auto flex'>
         <div className="mx-2 w-1/2 mb-4">
           <label htmlFor="Name" className="leading-7 text-m text-gray-600">Name</label>
-          <input onChange={handleChange} value={name} id="Name" name="name" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <Input onChange={handleChange} placeholder='Enter your name' value={name} id="Name" name="name" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
         <div className="mx-2 w-1/2 mb-4">
           <label htmlFor="Email" className="leading-7 text-m text-gray-600">Email</label>
-          <input onChange={handleChange} value={email} id="Email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <Input onChange={handleChange} value={email} id="Email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       
       </div>
       <div className="mx-2 w-full mb-4">
         <label htmlFor="Address" className="leading-7 text-m text-gray-600">Address</label>
-        <textarea onChange={handleChange} value={address} id="Address" name="address" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
+        <textarea onChange={handleChange} placeholder='Address please' value={address} id="Address" name="address" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-20 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"></textarea>
       </div>
       <div className='mx-auto flex'>
         <div className="mx-2 w-1/2 mb-2">
           <label htmlFor="Pincode" className="leading-7 text-m text-gray-600">Pincode</label>
-          <input onChange={handleChange} value={pincode} id="Pincode" name="pincode" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <Input onChange={handleChange} value={pincode} placeholder='Enter the pincode' id="Pincode" name="pincode" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
         <div className="mx-2 w-1/2 mb-2">
           <label htmlFor="State" className="leading-7 text-m text-gray-600">State</label>
-          <input onChange={handleChange} value={state} id="State" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <Input onChange={handleChange} value={state} id="State" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       </div>
       <div className='mx-auto flex'>
         <div className="mx-2 w-1/2 mb-2">
           <label htmlFor="Phone" className="leading-7 text-m text-gray-600">Phone</label>
-          <input onChange={handleChange} value={phone} id="Phone" name="phone" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <Input onChange={handleChange} value={phone} placeholder='Enter your 10 digit phone number' id="Phone" name="phone" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
-        <div className="mx-2 w-1/2 mb-2">
+        <div className="mx-1 w-1/2 mb-2">
           <label htmlFor="City" className="leading-7 text-m text-gray-600">City</label>
-          <input onChange={handleChange} value={city} id="City" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
+          <Input onChange={handleChange} value={city} id="City" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-indigo-200 h-10 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" />
         </div>
       </div>
       <h2 className='font-semibold text-xl'>2.Review Cart Items & Pay</h2>
@@ -330,14 +344,28 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
         </ol>
         <span className='font-bold'>subtotal = {subtotal}</span>
       </div>
-      <apan>
+      <span>
+  
         <button onClick={createOrder} disabled={disabled} className="disabled:bg-violet-400 lg:mt-2 xl:mt-4 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">
           <IoBagCheckSharp className="m-1 mx-2" />
           Pay  &#x20B9;{subtotal}
         </button>
-      </apan>
+
+      </span>
     </div>
   )
 }
 
 export default checkout
+
+
+const LabelInputContainer = ({
+  children,
+  className,
+}) => {
+  return (
+    <div className={cn("flex flex-col space-y-2 w-full", className)}>
+      {children}
+    </div>
+  );
+};

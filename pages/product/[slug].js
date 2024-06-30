@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const plug = ({ addToCart, product, variants, buyNow }) => {
+    const router = useRouter();
     console.log(product, variants);
     const { slug } = useRouter().query;
     // console.log(slug);
@@ -58,7 +59,8 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
 
     const refreshVariant = (newsize, newcolor) => {
         let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newcolor][newsize]['slug']}`
-        window.location = url;
+        // window.location = url;
+        router.push(url) ;
     }
     const notify = () => toast("Wow so easy!");
     return (
@@ -149,7 +151,6 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
                                             <option value={"L"}>L</option>
                                             <option value={"XL"}>XL</option>
                                             <option value={"XXL"}>XXL</option> */}
-
                                         </select>
                                         <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                                             <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4" viewBox="0 0 24 24">
@@ -157,12 +158,15 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
                                             </svg>
                                         </span>
                                     </div>
+                                    <span className="m-1 mx-3"> Available Qty : {product.availableQty}</span>
                                 </div>
                             </div>
                             <div className="flex justify-between md:text-sm">
-                                <span className="title-font font-medium text-2xl  text-gray-900">$58.00</span>
-                                <button onClick={() => buyNow(slug, 1, `${product.price}`, `${product.item}`, size, color)} className="flex ml-2  text-white bg-purple-500 border-0 py-2 px-4 focus:outline-none`}hover:bg-purple-600 rounded">Buy Now</button>
-                                <button onClick={() => { addToCart(slug, 1, `${product.price}`, `${product.item}`, size, color) }} className="flex  text-white bg-purple-500 border-0 py-2 px-4 focus:outline-none`}hover:bg-purple-600 rounded">Add to cart</button>
+                                {product.availableQty > 0 ? <span className="title-font font-medium text-2xl  text-gray-900">&#x20B9;{product.price}</span>
+                                : <span className="title-font font-medium text-2xl  text-gray-900">Out of Stock!</span>
+                                }
+                                <button disabled={product.availableQty <=0} onClick={() => buyNow(slug, 1, `${product.price}`, `${product.item}`, size, color)} className="flex ml-2  disabled:bg-purple-200 text-white bg-purple-500 border-0 py-2 px-4 focus:outline-none`}hover:bg-purple-600 rounded">Buy Now</button>
+                                <button disabled={product.availableQty <=0} onClick={() => { addToCart(slug, 1, `${product.price}`, `${product.item}`, size, color) }} className="flex disabled:bg-purple-200 text-white bg-purple-500 border-0 py-2 px-4 focus:outline-none`}hover:bg-purple-600 rounded">Add to cart</button>
                                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                     <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                                         <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
