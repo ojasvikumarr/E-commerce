@@ -7,7 +7,6 @@ import mongoose from 'mongoose';
 
 const tshirts = ({products}) => {
   console.log(products);
-
   return (
     <>
       <section className="text-gray-600 body-font">
