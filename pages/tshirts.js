@@ -62,6 +62,7 @@ const tshirts = ({products}) => {
                     {products[product].color.includes('Gray') &&  <button className={`border-2 m-1 border-gray-900  bg-gray-600 rounded-full w-6 h-6 `}></button>}
                   </div>
                 </div>
+                //hello
               </Link>
               </div>
             ))}
