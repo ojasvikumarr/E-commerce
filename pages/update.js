@@ -19,6 +19,7 @@ import {
 } from "../components/ui/tabs";
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from "next/router";
 
 export default function Update() {
     const [name, setName] = useState('');
@@ -28,7 +29,7 @@ export default function Update() {
     const [newPassword, setNewPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [verifyPassword, setVerifyPassword] = useState('');
-    
+    const router = useRouter();
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -48,6 +49,8 @@ export default function Update() {
 
             const result = await res.json();
             if (result.email) {
+                localStorage.setItem('token' , result.token);
+                console.log(result);
                 setVerifyPassword(result.pass);
                 setName(result.name);
                 setEmail(result.email);
@@ -64,9 +67,7 @@ export default function Update() {
                     theme: "light",
                     transition: Slide,
                 });
-                setTimeout(() => {
-                    router.push('/login');
-                }, 3500);
+                
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
@@ -82,12 +83,33 @@ export default function Update() {
         else if (name === 'oldpassword') setOldPassword(value);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = { name, email, oldPassword, password, newPassword };
+        const data = { name, email, oldPassword, newPassword }; // Corrected: use newPassword instead of password
         try {
-            if (oldPassword !== verifyPassword) {
-                toast.error("Old password does not match!", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateUser`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+    
+            const result = await res.json();
+            if (res.ok) {
+                console.log(`Successfully made the changes ${result}`);
+                toast.success('Successfully made the changes!', {
+                    position: "top-left",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "light",
+                    transition: Slide,
+                });
+            } else {
+                toast.error(result.error, {
                     position: "top-left",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -97,20 +119,10 @@ export default function Update() {
                     theme: "light",
                     transition: Slide,
                 });
-                return;
             }
-            console.log(data);
-            
-            toast.success('Successfully made the changes!', {
-                position: "top-left",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                theme: "light",
-                transition: Slide,
-            });
+            setTimeout(() => {
+                router.push('/');
+            }, 3500);
         } catch (error) {
             toast.error(error.message, {
                 position: "top-left",
@@ -122,10 +134,15 @@ export default function Update() {
                 theme: "light",
                 transition: Slide,
             });
-            console.error("Error:", `Problem in logging in the user ${error}`);
+            console.error("Error:", `Problem in updating the user ${error}`);
         }
+        setName('');
+        setEmail('');
+        setPassword('');
+        setOldPassword('');
+        setNewPassword('');
     };
-
+    
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
