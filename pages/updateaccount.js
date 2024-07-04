@@ -9,6 +9,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { IoBagCheckSharp } from "react-icons/io5";
 import { useEffect } from 'react';
+import { useUser } from '../context/UserContext';
 
 const updateaccount = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
     const router = useRouter()
@@ -20,6 +21,8 @@ const updateaccount = ({ cart, addToCart, removeFromCart, clearCart, subtotal })
   const [phone, setphone] = useState('')
   const [city, setcity] = useState('')
   const [disabled, setDisabled] = useState(true)
+
+  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -79,6 +82,7 @@ const updateaccount = ({ cart, addToCart, removeFromCart, clearCart, subtotal })
     
           const result = await res.json();
           if (result.email) {
+            console.log(result.name);
             setname(result.name);
             setemail(result.email);
           } else {
@@ -110,7 +114,7 @@ const updateaccount = ({ cart, addToCart, removeFromCart, clearCart, subtotal })
   return (
     <div className="container m-1 mx-10 mb-32">
         <h1 className='text-3xl text-center my-8 font-bold'>Update Your Account</h1>
-      <h2 className='font-semibold text-xl'>1.Delivery Details</h2>
+      <h2 className='font-semibold text-xl mb-2'>1.Delivery Details</h2>
       <div className='mx-auto flex'>
         <div className="mx-2 w-1/2 mb-4">
           <label htmlFor="Name" className="leading-7 text-m text-gray-600">Name</label>
@@ -122,6 +126,8 @@ const updateaccount = ({ cart, addToCart, removeFromCart, clearCart, subtotal })
         </div>
       
       </div>
+      <hr />
+      <h2 className='font-semibold text-xl mt-2'>2.Update Permanent Address</h2>
       <div className="mx-2 w-full mb-4">
         <label htmlFor="Address" className="leading-7 text-m text-gray-600">Address</label>
         <textarea onChange={handleChange} placeholder='Address please' value={address} id="Address" name="address" className=" flex w-full border-none bg-gray-100    shadow-input     file:border-0 file:bg-transparent 

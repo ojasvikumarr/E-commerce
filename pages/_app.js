@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import { useState , useEffect } from "react";
 import { useRouter } from "next/router";
 import LoadingBar from 'react-top-loading-bar'
+import { UserProvider } from "../context/UserContext";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
@@ -129,7 +130,9 @@ export default function App({ Component, pageProps }) {
         onLoaderFinished={() => setProgress(0)}
       />
       {key && <Navbar logout={logout} user={user} key={key} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>}
-      <Component {...pageProps} buyNow={buyNow} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>;
+
+      <Component {...pageProps} buyNow={buyNow} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} cart={cart} subtotal={subtotal}/>
+
       < main className="main-container"/>
       <Footer/>
     </>
