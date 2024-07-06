@@ -23,7 +23,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
   useEffect(() => {
     
   Object.keys(cart).length !== 0 && setsidebar(true)
-  let exempted = ['/checkout' , '/account' , '/order' , '/payment' , '/' , '/signup' ,'/login' ]
+  let exempted = ['/checkout' , '/account' , '/order' , '/payment' , '/' , '/signup' ,'/login' , '/forgotpassword' ]
     if(exempted.includes(router.pathname)){
       setsidebar(false);
     }
@@ -62,13 +62,13 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
               </div>}
               </span>
       <header className="sticky top-0 z-10 text-gray-600 body-font">
-        <div className=" bg-slate-50 flex py-4 px-7 flex-col md:flex-row md:justify-start justify-center items-center shadow-md">
+        <div className=" bg-slate-50 flex py-1 px-7 flex-col md:flex-row md:justify-start justify-center items-center shadow-md">
           <div className="logo mx-5">
             <Link href="/">
               <Image
                 src="/codeswear-high-resolution-logo-transparent.png"
-                width={120}
-                height={90}
+                width={60}
+                height={50}
                 alt="Logo"
               />
             </Link>
