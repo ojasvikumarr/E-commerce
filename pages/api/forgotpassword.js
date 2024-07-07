@@ -1,20 +1,20 @@
-// pages/api/forgot-password.js
 import crypto from 'crypto';
-import { sendMail } from '../../utils/email'; // Your nodemailer utility function
-import connectDb  from '../../middleware/mongoose' ;
+import { sendMail } from '../utils/email'; // Your nodemailer utility function
+import connectDb from '../../middleware/mongoose';
 import User from '../../models/user'; // Assuming you have a User model
 
-const handler = async(req, res) => {
+const handler = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
-
-  const { email } = req.body;
+  console.log(req.body);
+  const {email} = req.body;
 
   console.log(email);
 
   try {
     const user = await User.findOne({ email });
+    console.log(user)
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -26,14 +26,14 @@ const handler = async(req, res) => {
 
     // Update user with reset token and expiry
     user.resetPasswordToken = resetPasswordToken;
-    user.resetPasswordExpires = resetPasswordExpires;
+    user.resetPasswordExpiry = resetPasswordExpires;
     await user.save();
 
     // Send reset password email
     const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password/${resetToken}`;
     const mailOptions = {
       to: user.email,
-      from: 'your-email@example.com', // Replace with your verified email address in nodemailer
+      from: process.env.GMAIL, // Replace with your verified email address in nodemailer
       subject: 'Password Reset Request',
       text: `You are receiving this email because you (or someone else) has requested to reset the password for your account.\n\n
         Please click on the following link, or paste it into your browser to complete the process:\n\n
@@ -50,5 +50,11 @@ const handler = async(req, res) => {
   }
 }
 
+// Explicitly enable body parsing middleware
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
 
 export default connectDb(handler);

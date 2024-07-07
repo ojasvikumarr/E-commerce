@@ -26,7 +26,7 @@ const handler = async (req, res) => {
     // Update user password and clear reset token fields
     user.password = password;
     user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+    user.resetPasswordExpiry = undefined;
     await user.save();
 
     res.status(200).json({ message: 'Password reset successful' });

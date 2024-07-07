@@ -3,14 +3,32 @@ import Image from 'next/image';
 import Link from 'next/link';
 import Product from '@/models/products';
 import mongoose from 'mongoose';
-
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 const tshirts = ({products}) => {
-  console.log(products);
+  // console.log(products);
   return (
     <>
       <section className="text-gray-600 body-font">
-        <div className="container w-[400vh] py-24 mx-auto ">
+        <div className="container w-[400vh] py-14 mx-auto ">
+        <Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Home Page</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>T-shirts</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
           <div className="flex flex-wrap justify-center ">
           {Object.keys(products).length === 0 && <p className=' text-3xl text-center my-8 font-bold'>"Sorry We're out of stock, we'll be back soon , Stay tuned!</p>}
             {Object.keys(products).map((product) => (

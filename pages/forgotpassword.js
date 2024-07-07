@@ -12,21 +12,24 @@ const forgotpassword = () => {
     const {name , value} = e.target ;
     if(name == 'email') setemail(value);
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = {email} ;
+    console.log(data);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/forgot-password`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/forgotpassword`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(email),
+        body: JSON.stringify(data),
       });
 
       const result = await res.json();
       console.log("Success:", ` ${result}`);
 
-      toast('Successfully signed up!', {
+      toast("Success:", ` ${result}`, {
         position: "top-left",
         autoClose: 1000,
         hideProgressBar: false,

@@ -1,15 +1,47 @@
+"use client";
 import { useRouter } from "next/router";
-import { useState } from "react";
 import mongoose from "mongoose";
 import Product from "@/models/products";
 // import products from "@/models/products";
-
+import { GrSecure } from "react-icons/gr";
+import { FaBoxesPacking } from "react-icons/fa6";
+import { FaTruck } from "react-icons/fa";
+import React, { useEffect, useState } from "react"
+import { InfiniteMovingCards } from "../components/ui/infinite-moving-cards.tsx"
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { FaShieldAlt } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion } from "framer-motion";
+import { LampContainer } from "../components/ui/lamp.tsx";
 
 const plug = ({ addToCart, product, variants, buyNow }) => {
+    const [reviews, setReviews] = useState(0); // Initialize reviews state
+    const [stars, setStars] = useState([]); // Initialize stars state
+
+    useEffect(() => {
+        // Generate a random number of reviews between 1 and 5
+        const randomReviews = Math.ceil(Math.random() * 5);
+        setReviews(randomReviews);
+
+        // Create stars array based on randomReviews
+        const starsArray = Array(5).fill("empty"); // Initialize array with 5 "empty" stars
+        for (let i = 0; i < randomReviews; i++) {
+            starsArray[i] = "filled"; // Fill the first `randomReviews` positions with "filled"
+        }
+
+        setStars(starsArray); // Update stars state with calculated stars
+    }, []);
+    console.log(stars);
     const router = useRouter();
-    console.log(product, variants);
+    // console.log(product, variants);
     const { slug } = useRouter().query;
     // console.log(slug);
 
@@ -60,7 +92,7 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
     const refreshVariant = (newsize, newcolor) => {
         let url = `${process.env.NEXT_PUBLIC_HOST}/product/${variants[newcolor][newsize]['slug']}`
         // window.location = url;
-        router.push(url) ;
+        router.push(url);
     }
     const notify = () => toast("Wow so easy!");
     return (
@@ -79,7 +111,22 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
                     theme="light"
 
                 />
-                <div className="container px-5 py-24 mx-auto">
+                <div className="container px-5 py-14 mx-auto">
+                    <Breadcrumb>
+                        <BreadcrumbList>
+                            <BreadcrumbItem>
+                                <BreadcrumbLink href="/">Home Page</BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator />
+                            <BreadcrumbItem>
+                                <BreadcrumbLink href={`/${product.category.toLowerCase()}s`}>{product.category}</BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator />
+                            <BreadcrumbItem>
+                                <BreadcrumbPage>{product.item}</BreadcrumbPage>
+                            </BreadcrumbItem>
+                        </BreadcrumbList>
+                    </Breadcrumb>
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto  object-cover object-top rounded" src={product.img} />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
@@ -87,22 +134,22 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.item} ({product.size}/{product.color})</h1>
                             <div className="flex mb-4">
                                 <span className="flex items-center">
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-purple-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-purple-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-purple-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-purple-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-purple-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <span className="text-gray-600 ml-3">4 Reviews</span>
+                                    {stars.map((star, index) => (
+                                        <svg
+                                            key={index}
+                                            fill={star === "filled" ? "currentColor" : "none"}
+                                            stroke="currentColor"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth="2"
+                                            className="w-4 h-4 text-purple-500"
+                                            viewBox="0 0 24 24"
+                                        >
+                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                        </svg>
+                                    ))}
+                                    {/* Display number of reviews */}
+                                    <span className="text-gray-600 ml-3">{reviews} Reviews</span>
                                 </span>
                                 <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
                                     <a className="text-gray-500">
@@ -162,11 +209,15 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
                                 </div>
                             </div>
                             <div className="flex justify-between md:text-sm">
-                                {product.availableQty > 0 ? <span className="title-font font-medium text-2xl  text-gray-900">&#x20B9;{product.price}</span>
-                                : <span className="title-font font-medium text-2xl  text-gray-900">Out of Stock!</span>
+                                {product.availableQty > 0 ? <div className="flex items-center justify-center align-middle">
+                                    <span className="title-font font-medium text-l line-through items-center text-gray-900">&#x20B9;{1.3 * product.price}</span>
+                                    <span className="title-font font-bold text-3xl m-2 text-gray-900">&#x20B9;{product.price}</span>
+                                    <span className="title-font font-small text-l mb-1 text-red-900">-30%</span>
+                                </div>
+                                    : <span className="title-font font-medium text-2xl  text-gray-900">Out of Stock!</span>
                                 }
-                                <button disabled={product.availableQty <=0} onClick={() => buyNow(slug, 1, `${product.price}`, `${product.item}`, size, color)} className="flex ml-2  disabled:bg-purple-200 text-white bg-purple-500 border-0 py-2 px-4 focus:outline-none`}hover:bg-purple-600 rounded">Buy Now</button>
-                                <button disabled={product.availableQty <=0} onClick={() => { addToCart(slug, 1, `${product.price}`, `${product.item}`, size, color) }} className="flex disabled:bg-purple-200 text-white bg-purple-500 border-0 py-2 px-4 focus:outline-none`}hover:bg-purple-600 rounded">Add to cart</button>
+                                <button disabled={product.availableQty <= 0} onClick={() => buyNow(slug, 1, `${product.price}`, `${product.item}`, size, color)} className="flex ml-2  disabled:bg-purple-200 text-white items-center bg-purple-500 border-0 py-2 px-4 focus:outline-none`}hover:bg-purple-600 rounded">Buy Now</button>
+                                <button disabled={product.availableQty <= 0} onClick={() => { addToCart(slug, 1, `${product.price}`, `${product.item}`, size, color) }} className="flex disabled:bg-purple-200 text-white items-center bg-purple-500 border-0 py-2 px-4 focus:outline-none`}hover:bg-purple-600 rounded">Add to cart</button>
                                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                     <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                                         <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
@@ -179,10 +230,62 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
                             </div>
                             {!service && service != null && <div className="text-red-900 text-sm mt-3">Sorry , This pincode is not serivicable</div>}
                             {service && service != null && <div className="text-green-900 text-sm mt-3">Yay! , Your pincode is servicable </div>}
+                            <div className="flex flex-wrap mt-14">
+                                {/* First section */}
+                                <div className="flex items-center justify-center  sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 p-4">
+                                    <span className="flex items-center text-violet-900">
+                                        <FaTruck className="text-violet-800 bg-violet-300 p-1 rounded-full text-2xl" />
+                                        <span className="ml-2 font-bold">Free Shipping</span>
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-center  sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 p-4">
+                                    <span className="flex items-center text-violet-900">
+                                        <FaShieldAlt className="text-violet-800 bg-violet-300 p-1 rounded-full text-2xl" />
+                                        <span className="ml-2 font-bold">Secure Payments</span>
+                                    </span>
+                                </div>
+
+                                {/* Second section */}
+                                <div className="flex items-center justify-center sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 p-4">
+                                    <span className="flex items-center text-violet-900">
+                                        <FaBoxesPacking className="text-violet-800 bg-violet-300 p-1 rounded-full text-2xl" />
+                                        <span className="ml-2 font-bold">Free Returns</span>
+                                    </span>
+                                </div>
+                                <div className="flex items-center justify-center sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 p-4">
+                                    <span className="flex items-center text-violet-900">
+                                        <GrSecure className="text-violet-800 bg-violet-300 p-1 rounded-full text-2xl" />
+                                        <span className="ml-2 font-bold">Safety Certified</span>
+                                    </span>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </section>
+            <LampContainer>
+      <motion.h1
+        initial={{ opacity: 0.5, y: 100 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.3,
+          duration: 0.8,
+          ease: "easeInOut",
+        }}
+        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
+      >
+        Build lamps <br /> the right way
+      </motion.h1>
+    </LampContainer>
+            <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white items-center justify-center relative overflow-hidden">
+                <InfiniteMovingCards
+                    items={testimonials}
+                    direction="right"
+                    speed="slow"
+                    pauseOnHover={true}
+                />
+            </div>
         </>
     )
 }
@@ -201,7 +304,7 @@ export async function getServerSideProps(context) {
             notFound: true,
         };
     }
-    let variants = await Product.find({ item: products.item , category: products.category})
+    let variants = await Product.find({ item: products.item, category: products.category })
     let colorSizeSlug = {}//{red : {XL : {slug:'wear-the-code-xl}}}
     for (let item of variants) {
         if (Object.keys(colorSizeSlug).includes(item.color)) {
@@ -219,3 +322,35 @@ export async function getServerSideProps(context) {
         }
     }
 }
+
+const testimonials = [
+    {
+        quote:
+            "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
+        name: "Charles Dickens",
+        title: "A Tale of Two Cities",
+    },
+    {
+        quote:
+            "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
+        name: "William Shakespeare",
+        title: "Hamlet",
+    },
+    {
+        quote: "All that we see or seem is but a dream within a dream.",
+        name: "Edgar Allan Poe",
+        title: "A Dream Within a Dream",
+    },
+    {
+        quote:
+            "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
+        name: "Jane Austen",
+        title: "Pride and Prejudice",
+    },
+    {
+        quote:
+            "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
+        name: "Herman Melville",
+        title: "Moby-Dick",
+    },
+];
