@@ -7,6 +7,7 @@ import { GrSecure } from "react-icons/gr";
 import { FaBoxesPacking } from "react-icons/fa6";
 import { FaTruck } from "react-icons/fa";
 import React, { useEffect, useState } from "react"
+import { FaTags } from "react-icons/fa";
 import { InfiniteMovingCards } from "../components/ui/infinite-moving-cards.tsx"
 import {
     Breadcrumb,
@@ -25,7 +26,16 @@ import { LampContainer } from "../components/ui/lamp.tsx";
 const plug = ({ addToCart, product, variants, buyNow }) => {
     const [reviews, setReviews] = useState(0); // Initialize reviews state
     const [stars, setStars] = useState([]); // Initialize stars state
-
+    const [show, setshow] = useState(false);
+    const [details1, setdetails1] = useState(false)
+    const [details2, setdetails2] = useState(false)
+    const [details3, setdetails3] = useState(false)
+    const [details4, setdetails4] = useState(false)
+    const [know1, setknow1] = useState(false)
+    const [know2, setknow2] = useState(false)
+    const [activeButton, setActiveButton] = useState("Details");
+    const [details6, setdetails6] = useState(false)
+    const [details5, setdetails5] = useState(false)
     useEffect(() => {
         // Generate a random number of reviews between 1 and 5
         const randomReviews = Math.ceil(Math.random() * 5);
@@ -262,26 +272,113 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
 
                         </div>
                     </div>
+
+                    <div className="text-2xl font-bold text-zinc-800">Available Offers</div>
+                    <div className="flex flex-row">
+                        <ol className="flex flex-col text-sm">
+                            <li className="flex flex-row text-sm"><FaTags className="text-green-700 m-1" />Special PriceGet extra ₹291 off (price inclusive of cashback/coupon)<button onMouseLeave={() => { setdetails1(!details1) }} onMouseEnter={() => { setdetails1(!details1) }} className="text-blue-600 cursor-pointer ml-1">T&C</button>
+                                {details1 && <div className="absolute bg-white border-1 mt-5 font-light text-xs border-black shadow-2xl border-1 rounded-lg p-1 px-2 w-80 ml-44">"* This offer is valid until stocks last or till the offer ends. * Final Price is inclusive of the offer. * Offer is applicable on select products and brands."</div>}
+                            </li>
+                            <li className="flex text-small"><FaTags className="text-green-700 m-1" />Bank OfferGet ₹25 Instant Discount on first Flipkart UPI transaction on order of ₹200 and above<button onMouseLeave={() => { setdetails2(!details2) }} onMouseEnter={() => { setdetails2(!details2) }} className="text-blue-600 cursor-pointer ml-1">T&C</button>
+                                {details2 && <div className="absolute bg-white border-1 mt-5 font-light text-xs border-black shadow-2xl border-1 rounded-lg p-1 px-2 w-80 ml-96">Frequently Asked Questions
+
+                                    What is the offer?
+                                    <ol>
+                                        <li>
+                                            ●Rs. 25 Instant Benefits on first Flipkart UPI transaction on the Platform as a reward for signing up with Flipkart UPI.</li>
+                                        <li>
+                                            ●6th July’ 2024(00:00 hrs) to 31st July’ 2024 (23:59 hrs)</li>
+                                    </ol></div>}
+
+                            </li>
+                            <li className="flex text-small"><FaTags className="text-green-700 m-1" />Bank Offer5% Cashback on Flipkart Axis Bank Card<button onMouseLeave={() => { setdetails3(!details3) }} onMouseEnter={() => { setdetails3(!details3) }} className="text-blue-600 cursor-pointer ml-1">T&C</button>
+                                {details3 && <div className="absolute bg-white border-1 mt-5 font-light text-xs border-black shadow-2xl border-1 rounded-lg p-1 px-2 w-80 ml-16">Terms & Conditions – Flipkart Axis Bank Credit Card Cashback Proposition
+                                    For the cashback offer please refer to the detailed T&Cs given below. To apply/ check eligibility for the Flipkart Axis Bank Card please click here
+                                    Definitions: For the Flipkart Axis Bank Credit Card (“Card”), the following terms shall, unless the context otherwise admits, shall have the following meanings:</div>}
+
+                            </li>
+                            <li className="flex text-small"><FaTags className="text-green-700 m-1" />Bank Offer10% off up to ₹1,500 on HSBC Bank Credit Card EMI Transactions, on orders of ₹7,500 and above<button onMouseLeave={() => { setdetails4(!details4) }} onMouseEnter={() => { setdetails4(!details4) }} className="text-blue-600 cursor-pointer ml-1">T&C</button>
+                                {details4 && <div className="absolute bg-white border-1 mt-5 font-light text-xs border-black shadow-2xl border-1 rounded-lg p-1 px-2 w-80 min-h-fit ml-96">10% Instant Discount with HSBC Credit Card EMI transactions on purchase of select products.
+                                    Additional Instant Discount of up to INR 500 with HSBC Credit Card EMI transactions (9  months & above tenure) on purchase of select products.</div>}
+
+                            </li>
+                            {!show ? <button onClick={() => { setshow(!show) }} className="left-0 items-end flex ">show more!</button> : <>
+                                <li className="flex text-small"><FaTags className="text-green-700 m-1" />Partner OfferSign-up for Flipkart Pay Later & get free Times Prime Benefits worth ₹20,000* <button onMouseLeave={() => { setdetails5(!details5) }} onMouseEnter={() => { setdetails5(!details5) }} className="text-blue-600 cursor-pointer ml-1">T&C</button>
+                                    {details5 && <div className="absolute bg-white border-1 mt-5 font-light text-xs border-black shadow-2xl border-1 rounded-lg p-1 px-2 w-80 ml-72">"* This offer is valid until stocks last or till the offer ends. * Final Price is inclusive of the offer. * Offer is applicable on select products and brands."</div>}
+
+                                </li>
+                                <li className="flex text-small"><FaTags className="text-green-700 m-1" />Partner OfferMake a purchase and enjoy a surprise cashback/ coupon that you can redeem later!<button onMouseLeave={() => { setknow1(!know1) }} onMouseEnter={() => { setknow1(!know1) }} className="text-blue-600 cursor-pointer ml-1">Know more</button>
+                                    {know1 && <div className="absolute bg-white border-1 mt-5 font-light text-xs border-black shadow-2xl border-1 rounded-lg p-1 px-2 w-80 ml-80">Offer is valid from 00:00 hrs on 1st June 2024 to 23:59 hrs on 20th August 2024 <br />Giving one cashback coupon on selected range of products to customers who have purchased any product from Flipkart between 00:00 hrs on 1st June 2024 to 23:59 hrs on 20th August 2024.</div>}
+                                </li>
+                                <li className="flex text-small"><FaTags className="text-green-700 m-1" />Bank Offer10% off up to ₹1,250 on OneCard Credit Card EMI Transactions on orders of ₹10,000 and above<button onMouseLeave={() => { setknow2(!know2) }} onMouseEnter={() => { setknow2(!know2) }} className="text-blue-600 cursor-pointer ml-1">Know more</button>
+                                    {know2 && <div className="absolute bg-white border-1 mt-5 font-light text-xs border-black shadow-2xl border-1 rounded-lg p-1 px-2 w-80 ml-96">10% Instant Discount with HSBC Credit Card EMI transactions on purchase of select products.
+                                        Additional Instant Discount of up to INR 500 with HSBC Credit Card EMI transactions (9  months & above tenure) on purchase of select products.</div>}
+                                </li>
+                                <li className="flex "><FaTags className="text-green-700 m-1" />Bank OfferExtra ₹500 off on HSBC Credit Card EMI Txns, Tenure: 9 months and above, Min. Txn Value: ₹30,000<button onMouseLeave={() => { setdetails6(!details6) }} onMouseEnter={() => { setdetails6(!details6) }} className="text-blue-600 cursor-pointer ml-1">T&C</button>
+                                    {details6 && <div className="absolute bg-white border-1 mt-5 font-light text-xs border-black shadow-2xl border-1 rounded-lg p-1 px-2 w-80 ml-72">Categories - Sitewide excluding Grocery
+                                        Maximum Offer Savings per Credit Card (EMI Txns): INR 2,000</div>}
+                                </li>
+                                <button onClick={() => { setshow(!show) }} className="left-0 items-end flex ">show Less</button> </>}
+                        </ol>
+                    </div>
                 </div>
             </section>
-            <LampContainer>
-      <motion.h1
-        initial={{ opacity: 0.5, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{
-          delay: 0.3,
-          duration: 0.8,
-          ease: "easeInOut",
-        }}
-        className="mt-8 bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-7xl"
-      >
-        Build lamps <br /> the right way
-      </motion.h1>
-    </LampContainer>
+            <div className="container m-1 mx-14">
+      <div className="text-2xl justify-start  flex">
+        <button
+          className={`border-b-4 rounded  border-spacing-y-1 transition ${
+            activeButton === "Details" ? "border-violet-950" : "border-transparent"
+          }`}
+          onClick={() => setActiveButton("Details")}
+        >
+          Details
+        </button> 
+        <p className="font-thin mx-5">|</p>
+        <button
+          className={`border-b-4 rounded mr-5 border-spacing-y-1 transition ${
+            activeButton === "Shipping" ? "border-violet-950" : "border-transparent"
+          }`}
+          onClick={() => setActiveButton("Shipping")}
+        >
+          Shipping
+        </button>
+        <p className="font-thin mx-5">|</p>
+        <button
+          className={`border-b-4 rounded  border-spacing-y-1 transition ${
+            activeButton === "More Details" ? "border-violet-950" : "border-transparent"
+          }`}
+          onClick={() => setActiveButton("More Details")}
+        >
+          More Details
+        </button>
+      </div>
+
+      {/* Add content below based on active button */}
+      <div className="mt-4">
+        {activeButton === "Details" && <div>
+            Step into the world of nostalgia with the "Doraemon Vector Design Hoodie." This cozy and stylish hoodie is a homage to the beloved Doraemon, the iconic character that has captured the hearts of fans across generations.
+
+Crafted from high-quality and soft fabric, this hoodie not only offers comfort but also showcases a vibrant and detailed vector design of Doraemon on the front. The regular fit provides a classic and versatile look, making it perfect for casual outings, cozy nights, or whenever you want to express your love for this timeless character.
+
+The "Doraemon Vector Design Hoodie" isn't just clothing; it's a celebration of cherished memories and the joy that Doraemon has brought into our lives. Wear it proudly and connect with fellow fans who share your affection for this adorable robotic cat.
+
+Product Highlights:
+Charming vector design of Doraemon for fans of all ages
+High-quality and soft fabric for maximum comfort
+Regular fit for a classic and versatile style
+Perfect for casual outings, cozy nights, and expressing fandom
+Celebrate the joy and nostalgia of Doraemon with every wear
+Tags: hoodie, Doraemon, vector design, nostalgia, fandom, cozy
+            </div>}
+        {activeButton === "Shipping" && <div><img src="/public/review.png" alt="" /></div>}
+        {activeButton === "More Details" && <div>More Details Content</div>}
+      </div>
+    </div>
+                
             <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white items-center justify-center relative overflow-hidden">
                 <InfiniteMovingCards
                     items={testimonials}
-                    direction="right"
+                    direction="left"
                     speed="slow"
                     pauseOnHover={true}
                 />

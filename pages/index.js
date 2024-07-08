@@ -3,7 +3,8 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 // import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
-
+import { LayoutGrid } from "./components/ui/layout-grid"
+import { ParallaxScroll } from "./components/ui/parallax-scroll"
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -186,9 +187,123 @@ export default function Home() {
           <button className="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
             Button
           </button>
+          <ParallaxScroll images={images} />;
         </div>
+        <div className="h-screen py-20 w-full">
+      <LayoutGrid cards={cards} />
+      
+    </div>
       </section>
       {/* <Footer /> */}
     </>
   )
 }
+const images = [
+  "https://m.media-amazon.com/images/I/81YO4Qtc1mL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/51BaWHbbziL._SX679_.jpg",
+  "https://m.media-amazon.com/images/I/71xAkSEspIL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/41Z3fJiaFsL.jpg",
+  "https://m.media-amazon.com/images/I/81J3TNJ68TL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/615DOXPAfqL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/61A7rwdWHtL._SX679_.jpg",
+  "https://m.media-amazon.com/images/I/81JUb2j7IXL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/718ZiEqFr7L._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/71+49ZpSCfL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/61HmZ0plzdL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/61bdcF18g0L._SX679_.jpg",
+  "https://m.media-amazon.com/images/I/61ROABnmNpL._SX679_.jpg",
+  "https://m.media-amazon.com/images/I/81YO4Qtc1mL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/51BaWHbbziL._SX679_.jpg",
+  "https://m.media-amazon.com/images/I/71xAkSEspIL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/41Z3fJiaFsL.jpg",
+  "https://m.media-amazon.com/images/I/81J3TNJ68TL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/615DOXPAfqL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/61A7rwdWHtL._SX679_.jpg",
+  "https://m.media-amazon.com/images/I/81JUb2j7IXL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/718ZiEqFr7L._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/71+49ZpSCfL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/61HmZ0plzdL._SY879_.jpg",
+  "https://m.media-amazon.com/images/I/61bdcF18g0L._SX679_.jpg",
+  "https://m.media-amazon.com/images/I/61ROABnmNpL._SX679_.jpg"
+];
+const SkeletonOne = () => {
+  return (
+    <div>
+      <p className="font-bold text-4xl text-white">House in the woods</p>
+      <p className="font-normal text-base text-white"></p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        A serene and tranquil retreat, this house in the woods offers a peaceful
+        escape from the hustle and bustle of city life.
+      </p>
+    </div>
+  );
+};
+ 
+const SkeletonTwo = () => {
+  return (
+    <div>
+      <p className="font-bold text-4xl text-white">House above the clouds</p>
+      <p className="font-normal text-base text-white"></p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        Perched high above the world, this house offers breathtaking views and a
+        unique living experience. It&apos;s a place where the sky meets home,
+        and tranquility is a way of life.
+      </p>
+    </div>
+  );
+};
+const SkeletonThree = () => {
+  return (
+    <div>
+      <p className="font-bold text-4xl text-white">Greens all over</p>
+      <p className="font-normal text-base text-white"></p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        A house surrounded by greenery and nature&apos;s beauty. It&apos;s the
+        perfect place to relax, unwind, and enjoy life.
+      </p>
+    </div>
+  );
+};
+const SkeletonFour = () => {
+  return (
+    <div>
+      <p className="font-bold text-4xl text-white">Rivers are serene</p>
+      <p className="font-normal text-base text-white"></p>
+      <p className="font-normal text-base my-4 max-w-lg text-neutral-200">
+        A house by the river is a place of peace and tranquility. It&apos;s the
+        perfect place to relax, unwind, and enjoy life.
+      </p>
+    </div>
+  );
+};
+ 
+const cards = [
+  {
+    id: 1,
+    content: <SkeletonOne />,
+    className: "md:col-span-2",
+    thumbnail:
+      "https://images.unsplash.com/photo-1476231682828-37e571bc172f?q=80&w=3474&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 2,
+    content: <SkeletonTwo />,
+    className: "col-span-1",
+    thumbnail:
+      "https://images.unsplash.com/photo-1464457312035-3d7d0e0c058e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 3,
+    content: <SkeletonThree />,
+    className: "col-span-1",
+    thumbnail:
+      "https://images.unsplash.com/photo-1588880331179-bc9b93a8cb5e?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    id: 4,
+    content: <SkeletonFour />,
+    className: "md:col-span-2",
+    thumbnail:
+      "https://images.unsplash.com/photo-1475070929565-c985b496cb9f?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+];
