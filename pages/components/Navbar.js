@@ -1,4 +1,6 @@
+"use client";
 import Image from "next/image";
+
 import Link from "next/link";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoMdCloseCircle } from "react-icons/io";
@@ -11,11 +13,20 @@ import { CgTrashEmpty } from "react-icons/cg";
 import { MdAccountCircle } from "react-icons/md";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import {PlaceholdersAndVanishInput} from "../components/ui/placeholders-and-vanish-input"
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   console.log(cart, addToCart, removeFromCart, clearCart, subtotal);
   const ref = useRef();
   const [sidebar, setsidebar] = useState(true)
+
+  const placeholders = [
+    "What's the first rule of Fight Club?",
+    "Who is Tyler Durden?",
+    "Where is Andrew Laeddis Hiding?",
+    "Write a Javascript method to reverse a string",
+    "How to assemble your own PC?",
+  ];
   const toggleCart = () => {
     setsidebar(!sidebar);
   };
@@ -49,6 +60,17 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
   //   emptyCart()
   // }, [])
   
+
+  const [search, setsearch] = useState('second')
+
+  const handleChange = (e) => {
+    setsearch(e.target.value);
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(search);
+  };
+
   return (
     <div className={`${!sidebar && 'overflow-hidden'}`}>
       <span onMouseLeave={() => {setTimeout(() => { setDropdown(false)}, 500) }}>
@@ -61,7 +83,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
                 </ul>
               </div>}
               </span>
-      <header className="sticky top-0 z-10 text-gray-600 body-font">
+      <header className="sticky mt-2 top-0 z-10 text-gray-600 body-font">
         <div className=" bg-slate-50 flex py-1 px-7 flex-col md:flex-row md:justify-start justify-center items-center shadow-md">
           <div className="logo mx-5">
             <Link href="/">
@@ -90,6 +112,14 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
               Zipper
             </Link>
           </nav>
+          <div className="flex flex-row justify-center  items-center px-4">
+
+      <PlaceholdersAndVanishInput
+        placeholders={placeholders}
+        onChange={handleChange}
+        onSubmit={onSubmit}
+      />
+    </div>
           <div className="cursor-pointer z-100">
             
               <span  onMouseOver={() => setDropdown(true)}  >

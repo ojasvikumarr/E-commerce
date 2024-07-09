@@ -86,3 +86,32 @@
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes rainbow {
+  0% { color: violet; }
+  14% { color: white; }
+  28% { color: violet; }
+  42% { color: white; }
+  57% { color: violet; }
+  71% { color: white; }
+  85% { color: violet; }
+  100% { color: white; }
+}
+
+.rainbow-text {
+  animation: rainbow 2s linear infinite;
+}
+
+.parent {
+  background: white;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.parent[data-isOpen="true"] {
+  width: 400px;
+  height: 200px;
+}
