@@ -48,10 +48,10 @@ const stickers = ({products}) => {
                 <div className="mt-auto text-left align-bottom m-auto">
                   <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">{products[product].category}</h3>
                   <h2 className="text-gray-900 title-font text-lg font-medium">{products[product].item}</h2>
-                  <p className="mt-1 ">&#x20B9;{products[product].price}</p>
-                  <h2 className="text-gray-900 title-font text-lg font-medium">
+                  <p className="mt-1 font-bold ">&#x20B9;{products[product].price}</p>
+                  {/* <h2 className="text-gray-900 title-font text-lg font-medium">
                     {products[product].color+" "}
-                  </h2>
+                  </h2> */}
                   <div>
 {/*                     
                     {
@@ -63,7 +63,7 @@ const stickers = ({products}) => {
                     } */}
                     
                   </div>
-                  <div>
+                  {/* <div>
                     {products[product].size.includes('S') && <span className='border-violet-900 border-2 rounded p-1 m-1 mt-2 '>S</span>}
                     {products[product].size.includes('M') && <span className='border-violet-900 border-2 rounded p-1 m-1'>M</span>}
                     {products[product].size.includes('L') && <span className='border-violet-900 border-2 rounded p-1 m-1'>L</span>}
@@ -79,7 +79,7 @@ const stickers = ({products}) => {
                     {products[product].color.includes('Violet') &&  <button className={`border-2 m-1 border-gray-900  bg-violet-600 rounded-full w-6 h-6 `}></button>}
                     {products[product].color.includes('Yellow') &&  <button className={`border-2 m-1 border-gray-900  bg-yellow-600 rounded-full w-6 h-6 `}></button>}
                     {products[product].color.includes('Gray') &&  <button className={`border-2 m-1 border-gray-900  bg-gray-600 rounded-full w-6 h-6 `}></button>}
-                  </div>
+                  </div> */}
                 </div>
               </Link>
               </div>

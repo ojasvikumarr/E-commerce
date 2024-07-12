@@ -16,7 +16,7 @@ const PhotoSlider = ({ images, interval = 1500 }) => {
 
   useEffect(() => {
     if (sliderRef.current) {
-      sliderRef.current.style.transition = "transform 0.5s ease-in-out";
+      sliderRef.current.style.transition = "transform  0.5s ease-in-out";
       sliderRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
     }
   }, [currentIndex]);
@@ -76,13 +76,13 @@ const PhotoSlider = ({ images, interval = 1500 }) => {
       </div>
       <button
         onClick={goToPrevSlide}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-violet-500 bg-opacity-50 text-white p-2 rounded-full"
       >
         <FaRegArrowAltCircleLeft className="h-6 w-6" />
       </button>
       <button
         onClick={goToNextSlide}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-violet-500 bg-opacity-50 text-white p-2 rounded-full"
       >
         <FaRegArrowAltCircleRight className="h-6 w-6" />
       </button>

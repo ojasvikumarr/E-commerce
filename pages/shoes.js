@@ -12,8 +12,9 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
-const tshirts = ({products}) => {
-  // console.log(products);
+const shoes = ({products}) => {
+  console.log(products);
+
   return (
     <>
       <section className="text-gray-600 body-font">
@@ -25,7 +26,7 @@ const tshirts = ({products}) => {
     </BreadcrumbItem>
     <BreadcrumbSeparator />
     <BreadcrumbItem>
-      <BreadcrumbPage>T-shirts</BreadcrumbPage>
+      <BreadcrumbPage>Shoes</BreadcrumbPage>
     </BreadcrumbItem>
   </BreadcrumbList>
 </Breadcrumb>
@@ -78,10 +79,6 @@ const tshirts = ({products}) => {
                     {products[product].color.includes('Violet') &&  <button className={`border-2 m-1 border-gray-900  bg-violet-600 rounded-full w-6 h-6 `}></button>}
                     {products[product].color.includes('Yellow') &&  <button className={`border-2 m-1 border-gray-900  bg-yellow-600 rounded-full w-6 h-6 `}></button>}
                     {products[product].color.includes('Gray') &&  <button className={`border-2 m-1 border-gray-900  bg-gray-600 rounded-full w-6 h-6 `}></button>}
-                    {products[product].color.includes('Orange') &&  <button className={`border-2 m-1 border-gray-900  bg-orange-600 rounded-full w-6 h-6 `}></button>}
-                    {products[product].color.includes('White') &&  <button className={`border-2 m-1 border-gray-900  bg-white rounded-full w-6 h-6 `}></button>}
-                    {products[product].color.includes('Neon') &&  <button className={`border-2 m-1 border-gray-900  bg-cyan-400 rounded-full w-6 h-6 `}></button>}
-                    {products[product].color.includes('Pink') &&  <button className={`border-2 m-1 border-gray-900  bg-pink-400 rounded-full w-6 h-6 `}></button>}
                   </div>
                 </div>
               </Link>
@@ -94,36 +91,33 @@ const tshirts = ({products}) => {
   );
 };
 
-export default tshirts;
+export default shoes;
 
 
 export async function getServerSideProps(context) {
   if(!mongoose.connections[0].readyState){
     await mongoose.connect(process.env.MONGO_URI)
   }
-  let products = await Product.find({category:'tshirt'});
-  let tshirts = {};
+  let products = await Product.find({category:'shoe'});
+  let mugs = {};
         for(let item of products){
-            if(item.item in tshirts){
-                if(!tshirts[item.item].color.includes(item.color) && item.availableQty>0){
-                    tshirts[item.item].color.push(item.color)
+            if(item.item in mugs){
+                if(!mugs[item.item].color.includes(item.color) && item.availableQty>0){
+                    mugs[item.item].color.push(item.color)
                 }
-                if(!tshirts[item.item].size.includes(item.size) && item.availableQty>0){
-                    tshirts[item.item].size.push(item.size)
+                if(!mugs[item.item].size.includes(item.size) && item.availableQty>0){
+                    mugs[item.item].size.push(item.size)
                 }
             }else{
-                tshirts[item.item] = JSON.parse(JSON.stringify(item))
+                mugs[item.item] = JSON.parse(JSON.stringify(item))
                 if(item.availableQty > 0 ){
-                    tshirts[item.item].color = [item.color]
-                    tshirts[item.item].size = [item.size]
-                }else{
-                  tshirts[item.item].color = []
-                  tshirts[item.item].size = []
+                    mugs[item.item].color = [item.color]
+                    mugs[item.item].size = [item.size]
                 }
             }
         }
   return {
 
-    props: {products : JSON.parse(JSON.stringify(tshirts))},
+    props: {products : JSON.parse(JSON.stringify(mugs))},
   }
 }

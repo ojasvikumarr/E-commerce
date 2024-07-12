@@ -46,7 +46,6 @@ const hoodies = ({products}) => {
                       height={300}
                     />
                   {/* </a> */}
-                
                 <div className="mt-auto text-left align-bottom m-auto">
                   <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">{products[product].category}</h3>
                   <h2 className="text-gray-900 title-font text-lg font-medium">{products[product].item}</h2>
@@ -101,6 +100,7 @@ export async function getServerSideProps() {
     await mongoose.connect(process.env.MONGO_URI)
   }
   let products = await Product.find({category : 'Hoodie'});
+  // console.log(products);
   let hoodies = {};
         for(let item of products){
             if(item.item in hoodies){

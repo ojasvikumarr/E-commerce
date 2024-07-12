@@ -14,7 +14,7 @@ import { MdAccountCircle } from "react-icons/md";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import {PlaceholdersAndVanishInput} from "../components/ui/placeholders-and-vanish-input"
-
+import { Button } from "../components/ui/moving-border.tsx"
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   console.log(cart, addToCart, removeFromCart, clearCart, subtotal);
   const ref = useRef();
@@ -108,8 +108,8 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
             <Link href={"/mugs"} className="mr-5 hover:text-gray-900">
               Mugs
             </Link>
-            <Link href={"/zipper"} className="mr-5 hover:text-gray-900">
-              Zipper
+            <Link href={"/shoes"} className="mr-5 hover:text-gray-900">
+              Shoes
             </Link>
           </nav>
           <div className="flex flex-row justify-center  items-center px-4">
@@ -132,7 +132,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
               </span>
             
             {!user.value && <Link href={"/login"}>
-              <button className="lg:mt-2 xl:mt-0 flex-shrink-0 inline-flex text-white bg-indigo-500 border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded mx-1 ">Login</button>
+              <Button className="lg:mt-2 xl:mt-0 z-10 flex-shrink-0 inline-flex text-white transition border-0 py-2 px-3 focus:outline-none hover:bg-indigo-600 rounded  ">Login</Button>
             </Link>}
 
           </div>

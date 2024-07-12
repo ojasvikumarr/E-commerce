@@ -206,9 +206,9 @@ const checkout = ({ cart, addToCart, removeFromCart, clearCart, subtotal }) => {
       });
   
       // Redirect to payment page with the order id
-      // setTimeout(() => {
-      //   router.push(`/payment?id=${result.orderId}`);
-      // }, 1600);
+      setTimeout(() => {
+        router.push(`/payment?id=${result.orderId}`);
+      }, 1600);
     } catch (error) {
       
       toast.error(`Error: Problem in Creating the order as ${error.message}`, {

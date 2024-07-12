@@ -324,57 +324,54 @@ const plug = ({ addToCart, product, variants, buyNow }) => {
                 </div>
             </section>
             <div className="container m-1 mx-14">
-      <div className="text-2xl justify-start  flex">
-        <button
-          className={`border-b-4 rounded  border-spacing-y-1 transition ${
-            activeButton === "Details" ? "border-violet-950" : "border-transparent"
-          }`}
-          onClick={() => setActiveButton("Details")}
-        >
-          Details
-        </button> 
-        <p className="font-thin mx-5">|</p>
-        <button
-          className={`border-b-4 rounded mr-5 border-spacing-y-1 transition ${
-            activeButton === "Shipping" ? "border-violet-950" : "border-transparent"
-          }`}
-          onClick={() => setActiveButton("Shipping")}
-        >
-          Shipping
-        </button>
-        <p className="font-thin mx-5">|</p>
-        <button
-          className={`border-b-4 rounded  border-spacing-y-1 transition ${
-            activeButton === "More Details" ? "border-violet-950" : "border-transparent"
-          }`}
-          onClick={() => setActiveButton("More Details")}
-        >
-          More Details
-        </button>
-      </div>
+                <div className="text-2xl justify-start  flex">
+                    <button
+                        className={`border-b-4 rounded  border-spacing-y-1 transition ${activeButton === "Details" ? "border-violet-950" : "border-transparent"
+                            }`}
+                        onClick={() => setActiveButton("Details")}
+                    >
+                        Details
+                    </button>
+                    <p className="font-thin mx-5">|</p>
+                    <button
+                        className={`border-b-4 rounded mr-5 border-spacing-y-1 transition ${activeButton === "Shipping" ? "border-violet-950" : "border-transparent"
+                            }`}
+                        onClick={() => setActiveButton("Shipping")}
+                    >
+                        Shipping
+                    </button>
+                    <p className="font-thin mx-5">|</p>
+                    <button
+                        className={`border-b-4 rounded  border-spacing-y-1 transition ${activeButton === "More Details" ? "border-violet-950" : "border-transparent"
+                            }`}
+                        onClick={() => setActiveButton("More Details")}
+                    >
+                        More Details
+                    </button>
+                </div>
 
-      {/* Add content below based on active button */}
-      <div className="mt-4">
-        {activeButton === "Details" && <div>
-            Step into the world of nostalgia with the "Doraemon Vector Design Hoodie." This cozy and stylish hoodie is a homage to the beloved Doraemon, the iconic character that has captured the hearts of fans across generations.
+                {/* Add content below based on active button */}
+                <div className="mt-4">
+                    {activeButton === "Details" && <div>
+                        Step into the world of nostalgia with the "Doraemon Vector Design Hoodie." This cozy and stylish hoodie is a homage to the beloved Doraemon, the iconic character that has captured the hearts of fans across generations.
 
-Crafted from high-quality and soft fabric, this hoodie not only offers comfort but also showcases a vibrant and detailed vector design of Doraemon on the front. The regular fit provides a classic and versatile look, making it perfect for casual outings, cozy nights, or whenever you want to express your love for this timeless character.
+                        Crafted from high-quality and soft fabric, this hoodie not only offers comfort but also showcases a vibrant and detailed vector design of Doraemon on the front. The regular fit provides a classic and versatile look, making it perfect for casual outings, cozy nights, or whenever you want to express your love for this timeless character.
 
-The "Doraemon Vector Design Hoodie" isn't just clothing; it's a celebration of cherished memories and the joy that Doraemon has brought into our lives. Wear it proudly and connect with fellow fans who share your affection for this adorable robotic cat.
+                        The "Doraemon Vector Design Hoodie" isn't just clothing; it's a celebration of cherished memories and the joy that Doraemon has brought into our lives. Wear it proudly and connect with fellow fans who share your affection for this adorable robotic cat.
 
-Product Highlights:
-Charming vector design of Doraemon for fans of all ages
-High-quality and soft fabric for maximum comfort
-Regular fit for a classic and versatile style
-Perfect for casual outings, cozy nights, and expressing fandom
-Celebrate the joy and nostalgia of Doraemon with every wear
-Tags: hoodie, Doraemon, vector design, nostalgia, fandom, cozy
-            </div>}
-        {activeButton === "Shipping" && <div><img src="/public/review.png" alt="" /></div>}
-        {activeButton === "More Details" && <div>More Details Content</div>}
-      </div>
-    </div>
-                
+                        Product Highlights:
+                        Charming vector design of Doraemon for fans of all ages
+                        High-quality and soft fabric for maximum comfort
+                        Regular fit for a classic and versatile style
+                        Perfect for casual outings, cozy nights, and expressing fandom
+                        Celebrate the joy and nostalgia of Doraemon with every wear
+                        Tags: hoodie, Doraemon, vector design, nostalgia, fandom, cozy
+                    </div>}
+                    {activeButton === "Shipping" && <div><img src="/public/review.png" alt="" /></div>}
+                    {activeButton === "More Details" && <div>More Details Content</div>}
+                </div>
+            </div>
+
             <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white items-center justify-center relative overflow-hidden">
                 <InfiniteMovingCards
                     items={testimonials}
