@@ -3,9 +3,12 @@ import type { Config } from 'tailwindcss';
 import defaultTheme from "tailwindcss/defaultTheme";
  
 import colors from "tailwindcss/colors";
-import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette";
+// import { default as flattenColorPalette } from "./node_modules/tailwindcss/lib/util/flattenColorPalette"
  /** @type {import('tailwindcss').Config} */
- 
+ const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
 const config: Config = {
   darkMode: 'class', // Using array syntax for 'darkMode' is unnecessary unless you have additional options
   content: [
