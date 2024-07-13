@@ -9,4 +9,5 @@ const userSchema = new mongoose.Schema({
     
 } , {timestamps:true});
 // mongoose.models = {}
-export default mongoose.models.User || mongoose.model('User', userSchema);
+const user = mongoose.models.User || mongoose.model('User', userSchema);
+export default user ;
