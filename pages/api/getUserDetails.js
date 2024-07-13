@@ -1,7 +1,7 @@
 // pages/api/getUserDetails.js
 import { decode } from 'punycode';
 import connectDb from '../../middleware/mongoose';
-import {User} from "../../models/user"
+import user from '../../models/user';
 import jwt from "jsonwebtoken";
 
 const handler = async (req, res) => {
@@ -12,7 +12,7 @@ const handler = async (req, res) => {
       console.log(token) ;
       const decoded = jwt.verify(token , process.env.JWT_SECRET);
       console.log(decoded.email);
-    const user = await User.find({email : decoded.email});
+    const user = await user.find({email : decoded.email});
         console.log(user);
       if (!user) {
         return res.status(404).json({ error: 'User not found' });
