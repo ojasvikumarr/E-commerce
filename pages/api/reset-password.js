@@ -2,7 +2,6 @@
 import crypto from 'crypto';
 import connectDb from '../../middleware/mongoose'; // Example function to connect to MongoDB
 import User from '../../models/user'; // Assuming you have a User model
-import { connect } from 'http2';
 
 const handler = async (req, res) => {
   if (req.method !== 'POST') {

@@ -8,5 +8,5 @@ const userSchema = new mongoose.Schema({
     resetPasswordExpiry : {type : String , default : undefined }
     
 } , {timestamps:true});
-mongoose.models = {}
-export default  mongoose.model("User" , userSchema)
+// mongoose.models = {}
+export default mongoose.models.User || mongoose.model('User', userSchema);

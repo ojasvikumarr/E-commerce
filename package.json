@@ -23,7 +23,6 @@
     "lucide-react": "^0.400.0",
     "mongoose": "^8.4.1",
     "next": "14.1.4",
-    "nodemailer": "^6.9.14",
     "npm": "^10.8.1",
     "paytmchecksum": "^1.5.1",
     "react": "^18",

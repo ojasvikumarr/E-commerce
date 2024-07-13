@@ -1,5 +1,5 @@
 import crypto from 'crypto';
-import { sendMail } from '../utils/email'; // Your nodemailer utility function
+
 import connectDb from '../../middleware/mongoose';
 import User from '../../models/user'; // Assuming you have a User model
 
@@ -31,17 +31,7 @@ const handler = async (req, res) => {
 
     // Send reset password email
     const resetUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password/${resetToken}`;
-    const mailOptions = {
-      to: user.email,
-      from: process.env.GMAIL, // Replace with your verified email address in nodemailer
-      subject: 'Password Reset Request',
-      text: `You are receiving this email because you (or someone else) has requested to reset the password for your account.\n\n
-        Please click on the following link, or paste it into your browser to complete the process:\n\n
-        ${resetUrl}\n\n
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-    };
-
-    await sendMail(mailOptions);
+    
 
     res.status(200).json({ message: 'Password reset email sent. Check your inbox.' });
   } catch (error) {
