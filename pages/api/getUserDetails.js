@@ -12,12 +12,12 @@ const handler = async (req, res) => {
       console.log(token) ;
       const decoded = jwt.verify(token , process.env.JWT_SECRET);
       console.log(decoded.email);
-    const user = await user.find({email : decoded.email});
-        console.log(user);
-      if (!user) {
+    const u = await user.find({email : decoded.email});
+        console.log(u);
+      if (!u) {
         return res.status(404).json({ error: 'User not found' });
       }
-      res.status(200).json({ user });
+      res.status(200).json({ u});
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Problem while fetching details of user' });
