@@ -144,7 +144,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "pages/signup.js", "pages/components/ui/placeholders-and-vanish-input.jsx"  ],
+, "pages/signup.js", "components/ui/placeholders-and-vanish-input.jsx"  ],
   "exclude": [
     "node_modules"
   ]

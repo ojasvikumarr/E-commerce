@@ -13,8 +13,8 @@ import { CgTrashEmpty } from "react-icons/cg";
 import { MdAccountCircle } from "react-icons/md";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import {PlaceholdersAndVanishInput} from "../components/ui/placeholders-and-vanish-input"
-import { Button } from "../components/ui/moving-border.tsx"
+import {PlaceholdersAndVanishInput} from "./ui/placeholders-and-vanish-input.jsx"
+import { Button } from "./ui/moving-border.tsx"
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   console.log(cart, addToCart, removeFromCart, clearCart, subtotal);

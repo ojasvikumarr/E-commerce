@@ -8,7 +8,7 @@ import { FaBoxesPacking } from "react-icons/fa6";
 import { FaTruck } from "react-icons/fa";
 import React, { useEffect, useState } from "react"
 import { FaTags } from "react-icons/fa";
-import { InfiniteMovingCards } from "../components/ui/infinite-moving-cards.tsx"
+import { InfiniteMovingCards } from "/components/ui/infinite-moving-cards.tsx"
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -21,7 +21,7 @@ import { FaShieldAlt } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { motion } from "framer-motion";
-import { LampContainer } from "../components/ui/lamp.tsx";
+import { LampContainer } from "/components/ui/lamp.tsx";
 
 const plug = ({ addToCart, product, variants, buyNow }) => {
     const [reviews, setReviews] = useState(0); // Initialize reviews state

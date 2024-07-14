@@ -4,13 +4,13 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 // import Navbar from "./components/Navbar";
 // import Footer from "./components/Footer";
-import { LayoutGrid } from "./components/ui/layout-grid"
-import { ParallaxScroll } from "./components/ui/parallax-scroll"
+import { LayoutGrid } from "../components/ui/layout-grid"
+import { ParallaxScroll } from "../components/ui/parallax-scroll"
 const inter = Inter({ subsets: ["latin"] });
-import PhotoSlider from "./components/photoSlider";
+import PhotoSlider from "../components/photoSlider";
 import { motion } from "framer-motion"
 import { useState } from "react";
-import { TypewriterEffect } from "./components/ui/typewriter-effect"
+import { TypewriterEffect } from "../components/ui/typewriter-effect"
 import Link from "next/link";
 export default function Home() {
   const [ispen, setIsOpen] = useState(false);
