@@ -1,10 +1,8 @@
 // components/PlaceholdersAndVanishInput.js
-
-
 import { AnimatePresence, motion } from "framer-motion";
-import { SetStateAction, useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
-import { SearchDropdown } from "../searchDropdown"
+import SearchDropdown from "../searchDropdown";
 
 export function PlaceholdersAndVanishInput({
   placeholders,

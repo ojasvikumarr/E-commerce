@@ -15,6 +15,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import {PlaceholdersAndVanishInput} from "../components/ui/placeholders-and-vanish-input"
 import { Button } from "../components/ui/moving-border.tsx"
+
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subtotal }) => {
   console.log(cart, addToCart, removeFromCart, clearCart, subtotal);
   const ref = useRef();
@@ -61,15 +62,16 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
   // }, [])
   
 
-  const [search, setsearch] = useState('second')
+  const [search, setSearch] = useState('');
+
+  const handleSubmit = (value) => {
+    console.log(value);  // Log the search value
+  };
 
   const handleChange = (e) => {
-    setsearch(e.target.value);
+    setSearch(e.target.value);
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(search);
-  };
+
 
   return (
     <div className={`${!sidebar && 'overflow-hidden'}`}>
@@ -117,7 +119,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subt
       <PlaceholdersAndVanishInput
         placeholders={placeholders}
         onChange={handleChange}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
       />
     </div>
           <div className="cursor-pointer z-100">
