@@ -1,5 +1,5 @@
 // components/PlaceholdersAndVanishInput.js
-"use client";
+
 
 import { AnimatePresence, motion } from "framer-motion";
 import { SetStateAction, useCallback, useEffect, useRef, useState } from "react";

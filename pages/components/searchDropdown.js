@@ -1,7 +1,7 @@
 // components/SearchDropdown.js
 import { motion, AnimatePresence } from "framer-motion";
 
-export function SearchDropdown({ results, onSelect }) {
+export default function SearchDropdown({ results, onSelect }) {
   return (
     <div className="absolute top-12 left-0 right-0 bg-white shadow-md rounded-md z-50 max-h-64 overflow-y-auto">
       {results.length > 0 ? (
