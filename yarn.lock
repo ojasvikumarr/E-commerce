@@ -1457,7 +1457,7 @@ nanoid@^3.3.6, nanoid@^3.3.7:
 negotiator@^0.6.3:
   version "0.6.3"
 
-next@14.1.4:
+next@^14.1.4:
   version "14.1.4"
   resolved "https://registry.npmjs.org/next/-/next-14.1.4.tgz"
   integrity sha512-1WTaXeSrUwlz/XcnhGTY7+8eiaFvdet5z9u3V2jb+Ek1vFo0VhHKSAIJvDWfQpttWjnyw14kBeq28TPq7bTeEQ==

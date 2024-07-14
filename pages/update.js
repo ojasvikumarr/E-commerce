@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import { Button } from "../components/ui/moving-border";
+import Button from "../components/ui/moving-border";
 import {
     Card,
     CardContent,
@@ -30,6 +30,7 @@ export default function Update() {
     const [showPassword, setShowPassword] = useState(false);
     const [verifyPassword, setVerifyPassword] = useState('');
     const router = useRouter();
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -49,7 +50,7 @@ export default function Update() {
 
             const result = await res.json();
             if (result.email) {
-                localStorage.setItem('token' , result.token);
+                localStorage.setItem('token', result.token);
                 console.log(result);
                 setVerifyPassword(result.pass);
                 setName(result.name);
@@ -67,7 +68,6 @@ export default function Update() {
                     theme: "light",
                     transition: Slide,
                 });
-                
             }
         } catch (error) {
             console.error("Error fetching user data:", error);
@@ -94,7 +94,7 @@ export default function Update() {
                 },
                 body: JSON.stringify(data),
             });
-    
+
             const result = await res.json();
             if (res.ok) {
                 console.log(`Successfully made the changes ${result}`);
@@ -142,7 +142,7 @@ export default function Update() {
         setOldPassword('');
         setNewPassword('');
     };
-    
+
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
@@ -209,8 +209,8 @@ export default function Update() {
                                                 onChange={handleChange}
                                                 id="password"
                                                 type={showPassword ? "text" : "password"}
-                                                name="password"
-                                                value={password}
+                                                name="newpassword"
+                                                value={newPassword}
                                                 className="pr-10"
                                             />
                                             <button
