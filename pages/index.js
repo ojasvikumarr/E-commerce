@@ -82,7 +82,13 @@ export default function Home() {
             </Link>
             </div>
         </div>
-
+        <div>
+          <h2 className="justify-center flex text-red-900 m-1 bg-yellow-100 align-middle rounded p-1">
+            This is just a demo website for my resume as a summer project it is not meant to be used to do any fouls play or scam anyone
+            i requested Razorpay gateway as now most of the companies require onhands experience with implementing payment gateways 
+            and its taken as an additional edge over normal development 
+          </h2>
+        </div>
         <PhotoSlider images={img} interval={5000} />
         {/* <Image height={100} width={100} src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/fdc353ba-9ad5-4cda-9a1c-f8738775ccb1.__CR0,0,970,300_PT0_SX970_V1___.jpg"/> */}
       </div>
