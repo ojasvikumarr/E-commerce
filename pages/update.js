@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import Button from "../components/ui/moving-border";
+import { Button } from "../components/ui/moving-border";
 import {
     Card,
     CardContent,
@@ -9,8 +9,8 @@ import {
     CardHeader,
     CardTitle,
 } from "../components/ui/card";
-import Input from "../components/ui/input";
-import Label from "../components/ui/label";
+import Input from "../components/ui/input"
+import Label from "../components/ui/label"
 import {
     Tabs,
     TabsContent,
@@ -179,11 +179,11 @@ export default function Update() {
                                 </CardHeader>
                                 <CardContent className="space-y-2">
                                     <div className="space-y-1">
-                                        <Label htmlFor="name">Name</Label>
+                                        <label htmlFor="name">Name</label>
                                         <Input onChange={handleChange} id="name" name="name" value={name} />
                                     </div>
                                     <div className="space-y-1">
-                                        <Label htmlFor="email">Email</Label>
+                                        <label htmlFor="email">Email</label>
                                         <Input onChange={handleChange} id="email" name="email" value={email} />
                                     </div>
                                 </CardContent>
@@ -199,11 +199,11 @@ export default function Update() {
                                 </CardHeader>
                                 <CardContent className="space-y-2">
                                     <div className="space-y-1">
-                                        <Label htmlFor="oldpassword">Verify Old password</Label>
+                                        <label htmlFor="oldpassword">Verify Old password</label>
                                         <Input onChange={handleChange} id="oldpassword" type="password" name="oldpassword" value={oldPassword} />
                                     </div>
                                     <div className="space-y-1">
-                                        <Label htmlFor="password">New password</Label>
+                                        <label htmlFor="password">New password</label>
                                         <div className="relative flex items-center">
                                             <Input
                                                 onChange={handleChange}
@@ -223,7 +223,7 @@ export default function Update() {
                                         </div>
                                     </div>
                                     <div className="space-y-1">
-                                        <Label htmlFor="newpassword">Confirm New password</Label>
+                                        <label htmlFor="newpassword">Confirm New password</label>
                                         <Input onChange={handleChange} id="newpassword" type="password" name="newpassword" value={newPassword} />
                                     </div>
                                 </CardContent>
